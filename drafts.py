@@ -3,14 +3,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 
-diem_thi = np.array([6.5, 7.0, 8.5, 5.0, 9.0, 7.5])
-#  index:              0    1    2    3    4    5
-#  index âm:          -6   -5   -4   -3   -2   -1
-
-
-
-
-
 
 
 
