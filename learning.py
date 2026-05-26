@@ -542,7 +542,24 @@ print(matrix)
 # ✏️  Tóm tắt 1 dòng: array() tạo từ dữ liệu có sẵn;
 #     zeros/ones/arange/linspace tạo dữ liệu mẫu.
 
+# 1.3 Indexing & Slicing (Truy cập dữ liệu)
+# -----------------------------------------------------------------------------
 
+# --- Mảng 1D — giống list Python ---
+
+diem_thi = np.array([6.5, 7.0, 8.5, 5.0, 9.0, 7.5])
+#  index:              0    1    2    3    4    5
+#  index âm:          -6   -5   -4   -3   -2   -1
+
+# Lấy 1 phần tử
+print(diem_thi[0])    # 6.5  (phần tử đầu tiên)
+print(diem_thi[-1])   # 7.5  (phần tử cuối cùng)
+
+# Slicing: [start : stop : step]   (stop KHÔNG bao gồm)
+print(diem_thi[1:4])  # [7.  8.5 5. ]  → index 1, 2, 3
+print(diem_thi[:3])   # [6.5 7.  8.5]  → 3 phần tử đầu
+print(diem_thi[3:])   # [5.  9.  7.5]  → từ index 3 đến hết
+print(diem_thi[::2])  # [6.5 8.5 9. ]  → mỗi 2 phần tử lấy 1
 
 
 
