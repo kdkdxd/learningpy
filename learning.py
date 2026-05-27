@@ -561,16 +561,164 @@ print(diem_thi[:3])   # [6.5 7.  8.5]  → 3 phần tử đầu
 print(diem_thi[3:])   # [5.  9.  7.5]  → từ index 3 đến hết
 print(diem_thi[::2])  # [6.5 8.5 9. ]  → mỗi 2 phần tử lấy 1
 
+# --- Mảng 2D — dùng [hàng, cột] ---
+
+# Bảng điểm: 4 học sinh, 3 môn (Toán, Lý, Hóa)
+bang_diem = np.array([
+    [8.0, 7.5, 9.0],   # HS 1
+    [6.5, 8.0, 7.0],   # HS 2
+    [9.0, 9.5, 8.5],   # HS 3
+    [5.5, 6.0, 7.5],   # HS 4
+])
+#  cột:  0    1    2
+
+# Lấy 1 ô: [hàng, cột]
+print(bang_diem[0, 0])   # 8.0  → HS 1, môn Toán
+print(bang_diem[2, 1])   # 9.5  → HS 3, môn Lý
+print(bang_diem[-1, -1]) # 7.5  → HS cuối, môn cuối
+
+# Lấy cả 1 hàng (1 học sinh)
+print(bang_diem[1])      # [6.5 8.  7. ]  → tất cả điểm HS 2
+print(bang_diem[1, :])   # [6.5 8.  7. ]  → cách viết rõ hơn
+
+# Lấy cả 1 cột (1 môn học)
+print(bang_diem[:, 0])   # [8.  6.5 9.  5.5] → điểm Toán tất cả HS
+print(bang_diem[:, 1])   # [7.5 8.  9.5 6. ]  → điểm Lý tất cả HS
+
+# Lấy một vùng (submatrix)
+print(bang_diem[0:2, 1:3])
+# [[7.5 9. ]   → HS 1, 2 môn cuối
+#  [8.  7. ]]  → HS 2, 2 môn cuối
+
+
+# --- Boolean Indexing — lọc theo điều kiện ---
+
+diem_thi = np.array([6.5, 7.0, 8.5, 5.0, 9.0, 4.5])
+ten_hs   = np.array(["An", "Bình", "Chi", "Duy", "Em", "Phúc"])
+
+# Bước 1: Tạo mảng True/False
+dk_dat = diem_thi >= 5.0
+print(dk_dat)   # [ True  True  True  True  True False]
+
+# Bước 2: Dùng điều kiện để lọc
+diem_dat = diem_thi[dk_dat]
+print(diem_dat)  # [6.5 7.  8.5 5.  9. ]
+
+# Viết gọn lại (cách thông dụng nhất):
+hs_truot = ten_hs[diem_thi < 5.0]
+print(hs_truot)  # ['Phúc']
+
+hs_gioi  = ten_hs[diem_thi >= 8.0]
+print(hs_gioi)   # ['Chi' 'Em']
+
+# Kết hợp nhiều điều kiện: dùng & (and), | (or)
+# ⚠️  PHẢI có ngoặc () quanh mỗi điều kiện
+diem_tb_kha = diem_thi[(diem_thi >= 6.5) & (diem_thi < 8.0)]
+print(diem_tb_kha)  # [6.5 7. ]
+
+# ✏️  Tóm tắt 1 dòng: array[điều kiện] trả về tất cả phần tử thỏa điều kiện.
 
 
 
+# --- Vectorized Operations (Tính từng phần tử) ---
+
+# Dữ liệu bán hàng: giá và số lượng từng sản phẩm
+gia    = np.array([150000, 80000, 250000, 120000])  # đồng
+sl     = np.array([10,     25,    5,      15])       # cái
+
+# ✅ NumPy tự nhân từng cặp (không cần vòng lặp)
+doanh_thu = gia * sl
+print(doanh_thu)  # [1500000 2000000 1250000 1800000]
+
+# Tính giảm giá 10%
+gia_giam = gia * 0.9
+print(gia_giam)   # [135000.  72000. 225000. 108000.]
+
+# Cộng, trừ, chia đều hoạt động tương tự
+phi_ship = np.array([10000, 10000, 15000, 10000])
+tong_tien = doanh_thu + phi_ship
+print(tong_tien)  # [1510000 2010000 1265000 1810000]
+
+# --- Các hàm thống kê quan trọng ---
+
+diem = np.array([7.5, 8.0, 6.5, 9.0, 7.0, 8.5, 5.5, 9.5])
+
+print(np.sum(diem))     # 61.5   → tổng
+print(np.mean(diem))    # 7.6875 → trung bình
+print(np.median(diem))  # 7.75   → trung vị (phần tử giữa khi sắp xếp)
+print(np.std(diem))     # 1.2... → độ lệch chuẩn (data phân tán thế nào)
+print(np.var(diem))     # 1.4... → phương sai
+
+print(np.min(diem))     # 5.5    → nhỏ nhất
+print(np.max(diem))     # 9.5    → lớn nhất
+print(np.argmin(diem))  # 6      → INDEX của phần tử nhỏ nhất
+print(np.argmax(diem))  # 7      → INDEX của phần tử lớn nhất
+
+# Sắp xếp
+print(np.sort(diem))    # [5.5 6.5 7.  7.5 8.  8.5 9.  9.5]
+
+# Phần trăm (percentile) — rất hay dùng trong EDA
+print(np.percentile(diem, 25))  # 7.0  → Q1: 25% học sinh dưới điểm này
+print(np.percentile(diem, 50))  # 7.75 → Q2: trung vị
+print(np.percentile(diem, 75))  # 8.5  → Q3: 75% học sinh dưới điểm này
 
 
+# --- Tính theo trục (axis) trong mảng 2D ---
 
+# Bảng doanh thu: 3 nhân viên, 4 tháng
+doanh_thu = np.array([
+    [120, 150, 200, 180],   # NV A
+    [200, 220, 190, 210],   # NV B
+    [95,  110, 130, 120],   # NV C
+])
 
+# axis=0 → tính theo chiều DỌC (gộp các hàng lại)
+# → kết quả: 1 giá trị cho mỗi CỘT (mỗi tháng)
+trung_binh_thang = np.mean(doanh_thu, axis=0)
+print(trung_binh_thang)
+# [138.33 160.   173.33 170.  ] → TB mỗi tháng của toàn bộ NV
 
+# axis=1 → tính theo chiều NGANG (gộp các cột lại)
+# → kết quả: 1 giá trị cho mỗi HÀNG (mỗi nhân viên)
+tong_NV = np.sum(doanh_thu, axis=1)
+print(tong_NV)
+# [650 820 455] → tổng doanh thu của từng NV
 
+# ✏️  Nhớ mẹo axis:
+#     axis=0 → "xuyên qua các hàng" (kết quả theo cột)
+#     axis=1 → "xuyên qua các cột" (kết quả theo hàng)
 
+# -----------------------------------------------------------------------------
+# 1.5 Reshape & Transpose
+# -----------------------------------------------------------------------------
+
+# reshape: đổi hình dạng mảng, KHÔNG thay đổi dữ liệu
+data = np.arange(12)           # [0 1 2 3 4 5 6 7 8 9 10 11]
+print(data.shape)              # (12,)
+
+bang = data.reshape(3, 4)      # 3 hàng, 4 cột (3×4 = 12 ✅)
+print(bang)
+# [[ 0  1  2  3]
+#  [ 4  5  6  7]
+#  [ 8  9 10 11]]
+
+# Dùng -1: NumPy tự tính chiều đó
+bang2 = data.reshape(4, -1)    # 4 hàng, NumPy tính ra 3 cột
+print(bang2.shape)             # (4, 3)
+
+# flatten: chuyển mảng nhiều chiều về 1 chiều
+flat = bang.flatten()
+print(flat)   # [ 0  1  2  3  4  5  6  7  8  9 10 11]
+
+# Transpose: đổi hàng thành cột (xoay 90°)
+ma_tran = np.array([[1, 2, 3],
+                    [4, 5, 6]])
+print(ma_tran.shape)        # (2, 3)
+print(ma_tran.T.shape)      # (3, 2)
+print(ma_tran.T)
+# [[1 4]
+#  [2 5]
+#  [3 6]]
 
 
 
