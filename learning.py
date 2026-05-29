@@ -720,23 +720,35 @@ print(ma_tran.T)
 #  [2 5]
 #  [3 6]]
 
+#EXCERCISES
+
+#1 Normalize
+diem = np.array([4.5, 6.0, 7.5, 8.0, 9.5, 5.0, 7.0])
+diem_chuan_hoa = (diem-diem.min())/(diem.max()-diem.min())
+print(diem_chuan_hoa)
+
+#2 Boolean Masking, NaN
+nhiet_do = np.array([28.0, 72.0, 31.5, -5.0, 29.0, 41.0, 25.5])
+nhiet_do = nhiet_do[(nhiet_do<10)|(nhiet_do>40)] = np.nan
+print(nhiet_do)
+
+#3 Ma trận đường chéo
+gia_tri = np.array([1, 2, 3, 4, 5])
+matrix = np.diag(gia_tri)
+print(matrix)
+
+#4 Broadcasting, Khoảng cách Euclidean, newaxis
+diem = np.array([[0,0], [1,0], [0,1], [1,1]], dtype=float)
+diff = diem[:, np.newaxis :] - diem[np.newaxis, :, :]
+ds_matrix = np.sqrt((diff**2).sum(axis=2))
 
 
+#5 Boolean Masking
+diem   = np.array([7.0, 8.5, 6.0, 9.0, 5.5, 7.5, 8.0, 6.5])
+nhom   = np.array([ 'A',  'B',  'A',  'B',  'A',  'B',  'A',  'B'])
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+tb_A = diem[nhom=="A"].mean()
+tb_b = diem[nhom=="B"].mean()
 
 
 
