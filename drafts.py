@@ -33,6 +33,9 @@ print(col_mean)
 print(col_std)
 print(Z_score)
 
+print("It's not hard, it's just new")
+
+
 
 
 

@@ -729,7 +729,7 @@ print(diem_chuan_hoa)
 
 #2 Boolean Masking, NaN
 nhiet_do = np.array([28.0, 72.0, 31.5, -5.0, 29.0, 41.0, 25.5])
-nhiet_do = nhiet_do[(nhiet_do<10)|(nhiet_do>40)] = np.nan
+nhiet_do[(nhiet_do<10)|(nhiet_do>40)] = np.nan
 print(nhiet_do)
 
 #3 Ma trận đường chéo
@@ -769,13 +769,11 @@ print(diem.reshape(4,3))
 mean_each_week = np.mean(diem.reshape(4,3), axis =1)
 print(mean_each_week)
 
-
-
 diem = np.array([6,8,7, 5,9,8, 7,6,9, 8,10,9])
 col_mean = np.mean(diem.reshape(4,3), axis =0)
-col_std = np.std(diem.reshape(4,3), axis =0)
-Z_score = (diem.reshape(4,3) - col_mean)/col_std
-print(col_mean)
+col_std = np.std(diem.reshape(4,3), axis =0)           # std = Standard Devitation (Độ lệch chuẩn)
+Z_score = (diem.reshape(4,3) - col_mean)/col_std       # để đo sự phân tán data
+print(col_mean)                                        # Độ lệch chuẩn so với trung bình
 print(col_std)
 print(Z_score)
 
