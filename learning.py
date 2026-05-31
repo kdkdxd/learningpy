@@ -778,89 +778,222 @@ print(col_std)
 print(Z_score)
 
 
+# =============================================================================
+# PHẦN 2: PANDAS
+# =============================================================================
+# 2.1 Tại sao cần Pandas
+# Pandas giải quyết giới hạn của NumPy:
+# - NumPy chỉ chứa một kiểu dữ liệu (toàn số hoặc toàn string)
+# - NumPy không có tên cột/hàng → khó đọc
+# - NumPy không xử lý được dữ liệu thiếu (NaN)
+# - NumPy không đọc được file CSV, Excel
+# Pandas là thư viện số 1 của Data Science — bạn sẽ dùng nó HÀNG NGÀY.
+
+
+# -----------------------------------------------------------------------------
+# 2.2 Series — Mảng 1 chiều có nhãn
+# -----------------------------------------------------------------------------
+
+import pandas as pd
+diem_toan = pd.Series([8.0, 7.0, 9.0, 6.5, 8.5])
+print(diem_toan)  #tự động đánh index
+#0    8.0
+#1    7.5
+#2    9.0
+#3    6.5
+#4    8.5
+#dtype: float64
+
+#Tạo Series với index tự đặt
+diem_anh = pd.Series([8.5, 9.0, 7.3, 8.0, 9.5],
+                     index = ["An", "Bình", "Chi", "Duy", "Em"])
+#An      8.5
+#Bình    9.0
+#Chi     7.3
+#Duy     8.0
+#Em      9.5
+print(diem_anh)
 
 
+#Tạo từ Dict-key tự động thành index
+chi_tieu = pd.Series({
+    "Food":      2500000,
+    "Rent":      3000000,
+    "Transport": 500000,
+    "Entertain": 800000
+})
 
+print(chi_tieu)
+
+#Food         2500000
+#Rent         3000000
+#Transport     500000
+#Entertain     800000
+#dtype: int64
+
+#Truy cap bang label
+print(chi_tieu["Food"])
+print(chi_tieu["Entertain"])
+
+#Truy cap bang vi tri so
+
+print(chi_tieu.iloc[0])
+print(chi_tieu.iloc[2])
+
+#Slicing
+print(chi_tieu["Food":"Transport"])  #kèm điểm dừng
+print(chi_tieu.iloc[0:2])            #không kèm điểm dừng
+
+#Boolean indexing
+expense = chi_tieu[chi_tieu>1000000]  #Lọc theo điều kiện
+print(f"Expense:{expense}")
+
+cheap = chi_tieu[chi_tieu<1000000]
+print(f"Cheap:{cheap}")
+
+#Calculate in Series
+print(chi_tieu.sum())
+print(chi_tieu.mean())
+print(chi_tieu.max())
+print(chi_tieu.min())
+
+#idxmax / idxmin -> trả về tên, không phải giá trị
+print(chi_tieu.idxmax())
+print(chi_tieu.idxmin())
+
+print(chi_tieu.argmax())
+print(chi_tieu.argmin())
+
+pct = chi_tieu / chi_tieu.sum()*100
+print(f"Percentage per category: {pct.round(1)}")
 
+#Summary: Series = cột dữ liệu có tên hàng(index), có thể tính toán, lọc như Numpy
 
 
+# -----------------------------------------------------------------------------
+# 2.3 DataFrame — Trái tim của Pandas
+# -----------------------------------------------------------------------------
 
 
+# DataFrame = bảng dữ liệu 2 chiều, giống Excel.
+# Mỗi cột là một Series, tất cả dùng chung index (tên hàng)
+
+# Tạo DataFrame từ dictionary
+# Key = tên cột, Value = danh sách dữ liệu của cột đó
 
+nhan_vien = pd.DataFrame({
+    "Ten":       ["An",    "Bình",  "Chi",   "Duy",   "Em"],
+    "Phong":     ["IT",    "Kinh doanh", "IT", "HR", "Kinh doanh"],
+    "Luong":     [15000000, 20000000, 18000000, 12000000, 22000000],
+    "KinhNghiem": [3,       5,        4,        2,        6]
+})
+print(nhan_vien)
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#    Ten       Phong     Luong  KinhNghiem
+#0    An          IT  15000000           3
+#1  Bình  Kinh doanh  20000000           5
+#2   Chi          IT  18000000           4
+#3   Duy          HR  12000000           2
+#4    Em  Kinh doanh  22000000           6
+
+
+#Explore Dataframe (EDA)
+#Always do these things first
+
+print(nhan_vien.shape)      #(5,4) 5 hàng 4 cột
+print(nhan_vien.dtypes)     # data types
+print(nhan_vien.info())     #data types, non-null
+print(nhan_vien.describe()) # Thống kê nhanh
+
+print(nhan_vien.head(3))  # 3 hàng đầu
+print(nhan_vien.tail(2))  # 2 hàng cuối
+
+
+# Truy cập cột và hàng
+
+#CỘT
+
+luong = nhan_vien["Luong"]
+print(luong)        #Lấy một cột, trả về Series
+print(type(luong))  # Data types
+
+
+#Lấy nhiều cột, trả về DataFrame
+info = nhan_vien[["Ten", "Luong"]]
+print(info)
+#    Ten     Luong
+#0    An  15000000
+#1  Bình  20000000
+#2   Chi  18000000
+#3   Duy  12000000
+#4    Em  22000000
+
+#HÀNG
+#.loc()  truy cập bằng tên index
+print(nhan_vien.loc[0])   # Hàng đầu tiên
+print(nhan_vien.loc[2])   # Hàng thứ 3
+
+#.iloc() truy cập bằng vị trí số
+print(nhan_vien.iloc(0))
+print(nhan_vien.iloc[0:2])
+print(nhan_vien.iloc[-1])
+
+
+# -----------------------------------------------------------------------------
+# 2.4 Đọc Dữ Liệu Thực Tế
+# -----------------------------------------------------------------------------
+
+# Đọc file CSV (phổ biến nhất)
+#df = pd.read_csv("data/sales.csv")
+
+# Các tham số hay dùng:
+#df = pd.read_csv(
+#   "data/sales.csv",     
+#     sep=",",                 #dấu phân cách, mặc định là dấu phẩy      
+#     encoding="utf-8",       # mã hóa ký tự (utf-8-sig cho file tiếng Việt)
+#     index_col=0,            # cột nào làm index (thường dùng cột ID)
+#     parse_dates=["NgayBan"] # chuyển cột này sang kiểu datetime tự động
+# )
+
+# Đọc file Excel
+#df = pd.read_excel("data/bao_cao.xlsx", sheet_name="Sheet1")
+
+# Lưu file CSV
+#df.to_csv("output/ket_qua.csv", index=False)  # index=False: không lưu index_col
+#df.to_csv("output/ket_qua.csv", index = True) #index = True: lưu index_col
+
+
+
+# -----------------------------------------------------------------------------
+# 2.5 Sampling — Lấy Mẫu Dữ Liệu
+# -------------------------------------;''----------------------------------------
+
+# Harvard CS109 nhấn mạnh: cách bạn lấy mẫu ảnh hưởng trực tiếp đến kết luận.
+# Dataset lớn không phải lúc nào cũng cần dùng hết — và lấy mẫu sai → bias.
+
+# Giả sử có dataset 10,000 đơn hàng
+np.random.seed(42)
+df = pd.DataFrame({
+    "OrderCode": range(1001),
+    "Price": np.random.exponential(500000, 1001).round(),
+    "Area":np.random.choice(["HCM", "HN", "DN", "CT"], 1001, p=[0.4, 0.35, 0.15, 0.1])
+})
+
+# --- Random Sampling: lấy mẫu ngẫu nhiên ---
+# Dùng khi: dataset quá lớn, muốn test nhanh
+ex200 = df.sample(n=200, random_state=42)       #lấy ngẫu nhiên 200 số
+ex25pct = df.sample(frac=0.25, random_state=42) #lấy 25% random_state = random.seed()
+
+
+# --- Stratified Sampling: lấy mẫu theo tỉ lệ nhóm ---
+# Dùng khi: muốn mẫu đại diện cho TẤT CẢ nhóm
+# Ví dụ: đảm bảo HCM/HN/DN/CT đều có trong mẫu theo đúng tỉ lệ
+ex_stratified = df.groupby("Area", group_keys=False).sample(
+    frac=0.25,
+    random_state=42
+)
+print(ex_stratified)
+print(ex_stratified["Area"].value_counts(normalize=True)*100)
 
 
 

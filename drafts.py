@@ -4,38 +4,176 @@ import pandas as pd
 import numpy as np
 
 
-#B1
-diem = np.array([4.0, 7.5, 3.5, 8.0, 5.0, 6.5, 2.5, 9.0, 4.5, 7.0])
-diem_dat =  diem[diem>=5]
-so_dat = len(diem_dat)
-so_dat = (diem>5).sum()
-tb_dat = diem_dat.mean()
+np.random.seed(42)
+df = pd.DataFrame({
+    "OrderCode": range(1001),
+    "Price": np.random.exponential(500000, 1001).round(),
+    "Area":np.random.choice(["HCM","NY","BK","JK"], 1001, p = [0.4,0.35,0.15,0.1])
+})
+ex200 = df.sample(n=200, random_state=42)
+ex15pct = df.sample(frac=0.25, random_state=42)
 
-tb_truot = diem[diem<5].mean()
+ex_stratified =df.groupby("Area", group_keys=False).sample(
+    frac=0.25,
+    random_state=42
+)
 
-print(so_dat)
-print(tb_dat)
-print(tb_truot)
-
-#B2
-diem = np.array([6,8,7, 5,9,8, 7,6,9, 8,10,9])
-print(diem.reshape(4,3))
-mean_each_week = np.mean(diem.reshape(4,3), axis =1)
-print(mean_each_week)
-
-
-
-diem = np.array([6,8,7, 5,9,8, 7,6,9, 8,10,9])
-col_mean = np.mean(diem.reshape(4,3), axis =0)
-col_std = np.std(diem.reshape(4,3), axis =0)
-Z_score = (diem.reshape(4,3) - col_mean)/col_std
-print(col_mean)
-print(col_std)
-print(Z_score)
-
-print("It's not hard, it's just new")
+print(f"Example 200:{ex200}")
+print(f"Example 15%:{ex15pct}")
+print(f"Example Stratified:{ex_stratified["Area"].value_counts()}")
 
 
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+print("It's not hard, it's just new.")

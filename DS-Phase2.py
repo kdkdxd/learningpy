@@ -457,27 +457,27 @@ print(nhan_vien.iloc[1, 2])        # 20000000  (hàng 1, cột 2)
 # -----------------------------------------------------------------------------
 
 # Đọc file CSV (phổ biến nhất)
-# df = pd.read_csv("data/sales.csv")
+df = pd.read_csv("data/sales.csv")
 
 # Các tham số hay dùng:
-# df = pd.read_csv(
-#     "data/sales.csv",
-#     sep=",",               # dấu phân cách (mặc định là dấu phẩy)
-#     encoding="utf-8",      # mã hóa ký tự (utf-8-sig cho file tiếng Việt)
-#     index_col=0,           # cột nào làm index (thường dùng cột ID)
-#     parse_dates=["NgayBan"] # chuyển cột này sang kiểu datetime tự động
-# )
+df = pd.read_csv(
+    "data/sales.csv",     
+     sep=",",                #dấu phân cách, mặc định là dấu phẩy    
+     encoding="utf-8",       # mã hóa ký tự (utf-8-sig cho file tiếng Việt)
+     index_col=0,            # cột nào làm index (thường dùng cột ID)
+     parse_dates=["NgayBan"] # chuyển cột này sang kiểu datetime tự động
+ )
 
 # Đọc file Excel
-# df = pd.read_excel("data/bao_cao.xlsx", sheet_name="Sheet1")
+df = pd.read_excel("data/bao_cao.xlsx", sheet_name="Sheet1")
 
 # Lưu file CSV
-# df.to_csv("output/ket_qua.csv", index=False)  # index=False: không lưu STT
+df.to_csv("output/ket_qua.csv", index=False)  # index=False: không lưu STT
 
 
 # -----------------------------------------------------------------------------
 # 2.5 Sampling — Lấy Mẫu Dữ Liệu
-# -----------------------------------------------------------------------------
+# -------------------------------------;''----------------------------------------
 
 # Harvard CS109 nhấn mạnh: cách bạn lấy mẫu ảnh hưởng trực tiếp đến kết luận.
 # Dataset lớn không phải lúc nào cũng cần dùng hết — và lấy mẫu sai → bias.
@@ -488,9 +488,9 @@ import numpy as np
 # Giả sử có dataset 10,000 đơn hàng
 np.random.seed(42)
 df = pd.DataFrame({
-    "MaDH":    range(10000),
-    "Doanh":   np.random.exponential(500000, 10000).round(),
-    "KhuVuc":  np.random.choice(["HCM","HN","DN","CT"], 10000, p=[0.4,0.35,0.15,0.1])
+    "MaDH":    range(101),
+    "Doanh":   np.random.exponential(500000, 101).round(),
+    "KhuVuc":  np.random.choice(["HCM","HN","DN","CT"], 101, p=[0.4,0.35,0.15,0.1])
 })
 
 # --- Random Sampling: lấy mẫu ngẫu nhiên ---
@@ -501,8 +501,9 @@ mau_5pct = df.sample(frac=0.05, random_state=42)   # lấy 5% toàn bộ
 # --- Stratified Sampling: lấy mẫu theo tỉ lệ nhóm ---
 # Dùng khi: muốn mẫu đại diện cho TẤT CẢ nhóm
 # Ví dụ: đảm bảo HCM/HN/DN/CT đều có trong mẫu theo đúng tỉ lệ
-mau_stratified = df.groupby("KhuVuc", group_keys=False).apply(
-    lambda x: x.sample(frac=0.05, random_state=42)
+mau_stratified = df.groupby("KhuVuc", group_keys=False).sample(
+    frac=0.05,
+    random_state=42
 )
 print(mau_stratified["KhuVuc"].value_counts(normalize=True))
 # HCM    0.40   → giữ đúng tỉ lệ 40%
