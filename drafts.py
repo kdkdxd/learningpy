@@ -21,7 +21,7 @@ ex_stratified =df.groupby("Area", group_keys=False).sample(
 print(f"Example 200:{ex200}")
 print(f"Example 15%:{ex15pct}")
 print(f"Example Stratified:{ex_stratified["Area"].value_counts()}")
-
+print(ex_stratified.to_string())
 
 
 
