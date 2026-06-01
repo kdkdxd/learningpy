@@ -541,7 +541,7 @@ print(don_hang.loc["DH002", "GiaBan"])    # 350000
 print(don_hang.loc[:, "GiaBan"])          # cột GiaBan tất cả hàng
 print(don_hang.loc[:, ["GiaBan", "SoLuong"]])  # 2 cột
 
-# --- .iloc → dùng SỐ VỊ TRÍ (position) ---
+# --- .iloc → dùng SỐ VỊ TRÍ (positon) ---
 print(don_hang.iloc[2])                   # hàng thứ 3 (vị trí 2)
 print(don_hang.iloc[0:3])                 # 3 hàng đầu (KHÔNG kèm vị trí 3)
 print(don_hang.iloc[1, 1])               # 350000 (hàng 1, cột 1)
@@ -623,7 +623,6 @@ nv = nv.drop(columns=["Thue"])              # xóa cột Thue
 
 # Xóa hàng
 nv = nv.drop(index=2)                       # xóa hàng có index = 2
-
 # Đổi tên cột
 nv = nv.rename(columns={"Ten": "HoTen", "Luong": "LuongCoBan"})
 print(nv)
@@ -1426,7 +1425,7 @@ sns.scatterplot(data=df, x="Nam", y="Luong", hue="Phong",
 # Highlight outlier
 outlier = df.nlargest(1, "Luong").iloc[0]
 ax.annotate(f"Outlier: {outlier['Luong']:.1f}M\n({outlier['Phong']}, {outlier['Nam']} năm)",
-            xy=(outlier["Nam"], outlier["Luong"]),
+            xy=(outlier["Nam"], outlijer["Luong"]),
             xytext=(outlier["Nam"]-2, outlier["Luong"]-3),
             arrowprops=dict(arrowstyle="->", color="black"),
             fontsize=9, color="black",

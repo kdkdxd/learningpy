@@ -246,85 +246,167 @@ for i, p in enumerate(probs):
     print(f"{players[i]}:{p*100:.1f}% change")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# =============================================================================
+#  MINI PROJECT: PHÂN TÍCH DỮ LIỆU NHÂN VIÊN
+#  Bao gồm: 2.1 → 2.8 (Series, DataFrame, read_csv, Sampling, loc/iloc,
+#           Filtering, Thêm/Sửa/Xóa cột)
+# =============================================================================
+
+
+import numpy as np
+import pandas as pd
+
+print ("=== Employee Data Analysis ===")
+
+# =============================================================================
+# TẠO DỮ LIỆU GIẢ (thay cho việc đọc file CSV)
+# Trong thực tế: pd.read_csv("nhan_vien.csv")
+# =============================================================================
+
+np.random.seed(42)
+df = pd.DataFrame({
+    "Code": ["NV001","NV002","NV003","NV004","NV005",
+             "NV006","NV007","NV008","NV009","NV010"],
+    "Name": ["An", "Bình", "Chi", "Duy", "Em",
+             "Hà", "Khoa", "Linh", "Minh", "Phúc"],
+    "Phong": ["IT", "KD", "IT", "HR", "KD",
+              "HR", "IT", "KD", "HR", "IT"],
+    "Luong":[15, 20, 18, 12, 22,
+             14, 19, 13, 21, 17],
+    "Experience": [3, 5, 4, 2, 6,
+                   3, 5, 2, 7, 4],
+    "KPI": [8.5, 9.0, 8.0, 7.5, 9.5,
+            7.0, 8.8, 7.2, 9.2, 8.3],
+    "Gender": ["M", "M", "F", "M", "F",
+               "F", "M", "F", "M", "F"]
+})
+
+print(df)
+
+# =============================================================================
+# KHÁM PHÁ DỮ LIỆU ĐẦU TIÊN (2.3)
+# Luôn làm điều này đầu tiên khi nhận dataset mới!
+# =============================================================================
+print(f"Shape of Dataset:{df.shape}")
+print(f"First 5 rows:\n{df.head(5)}")
+print(f"Data Type:{df.dtypes}")
+print(f"Data Info:{df.info()}")
+print(f"Describe Dataset:{df.describe()}")
+
+# =============================================================================
+# LÀM VIỆC VỚI SERIES (2.2)
+# Mỗi cột trong DataFrame là 1 Series
+# =============================================================================
+
+luong = df["Luong"]
+print("Analysics Salary")
+print(f"Total Salary:{luong.sum()} trieu vnd")
+print(f"Mean Salary:{luong.mean():.1f} trieu vnd")
+print(f"Median Salary:{luong.median()} trieu vnd")
+print(f"Max Salary:{luong.max()} trieu vnd -> {luong.idxmax()}")
+print(f"Min Salary:{luong.min()} trieu vnd -> {luong.idxmin()}")
+
+salary_pct = luong/luong.sum()*100
+print("Salary percentage of each person:")
+print(f"{salary_pct.round(1)}%")
+
+# =============================================================================
+# SAMPLING: LẤY MẪU (2.5)
+# =============================================================================
+ 
+ex_random = df.sample(n=5, random_state = 42)
+print(f"Ex Random{ex_random[["Name","Phong","Luong"]]}")
+
+ex_stratified = df.groupby("Phong", group_keys =False).sample(
+    frac = 0.5,
+    random_state = 42
+)
+print(f"Ex Stratified:{ex_stratified}")
+
+print("50 percent each room:")
+print(ex_stratified[["Name", "Phong", "Luong"]])
+print("Number of people in Ex Stratified:")
+print(ex_stratified["Phong"].value_counts())
+
+# =============================================================================
+# TRUY CẬP DỮ LIỆU VỚI LOC & ILOC (2.6)
+# =============================================================================
+
+print(f"First Line:{df.loc[0]}")
+print(f"First 3 Lines, 2 Columns:{df.loc[0:2, ["Name", "Luong"]]}")
+print(f"Row 0-2, Columns 1-3:{df.iloc[0:3, 1:4]}")
+
+df_indexed = df.set_index("Code")
+print(f"After indexed:{df_indexed.loc["NV003"]}")
+
+# =============================================================================
+# LỌC DỮ LIỆU (2.7)
+# =============================================================================
+
+nv_it = df[df["Phong"]=="IT"]
+print(nv_it)
+print(f"Number of It workers:{len(nv_it)}")
+print(nv_it[["Name", "Luong", "Experience"]])
+
+
+it_senior = df[(df["Phong"]=="IT")&(df["Experience"] >=4)]
+print(f"IT workers with 4 years experience:{it_senior}")
+print(f"Number of Senior IT workers:{len(it_senior)}")
+print(it_senior[["Name","Experience","Luong"]])
+
+kd_it = df[df["Phong"].isin(["KD","IT"])]
+print(f"KD and IT workers:{kd_it}")
+
+medium_salary = df[df["Luong"].between(15,20)]
+print(f"Number of workers who have medium salary:{len(medium_salary)}")
+print(medium_salary[["Name", "Phong", "Luong"]])
+
+not_hr = df[~(df["Phong"]=="HR")]
+print(f"Not HR:{not_hr}")
+
+# =============================================================================
+# THÊM / SỬA / XÓA CỘT (2.8)
+# =============================================================================
+ 
+bonus_pct = np.select(
+    condlist =[
+        df["Phong"] == "IT",
+        df["Phong"] == "KD",
+        df["Phong"] == "HR"
+    ],
+    choicelist = [0.20, 0.25, 0.15],
+    default = 0
+)
+
+df["Bonus"] = (df["Luong"] * bonus_pct).round(1)
+df["Total Salary"] = df["Luong"]+ df["Bonus"]
+
+print(f"Bonus and Total Salary: {df['Bonus']} {df["Total Salary"]} ")
+print(df)
+
+df["Rank"] = np.select(
+    condlist =[
+        df["Luong"] >=20,
+        df["Luong"] >=15,
+        df["Luong"] <15
+    ],
+    choicelist = ["High", "Medium", "Low"],
+    default = "Unidentified"
+)
+
+print(df)
+
+df.loc[df["Name"] == "An", "Luong"] = 17
+df.loc[df["Name"] == "Duy", "Luong"] = 23
+df.loc[df["Name"] == "An", "Total Salary"] = 17 + df.loc[df["Name"] == "An", "Bonus"]
+print(df)
+
+df = df.rename(columns ={"Luong":"Salary"})
+df = df.drop(columns = "Gender")
+
+print(df)
+
+print(df.columns.to_list())
 
 
 

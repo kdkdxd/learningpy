@@ -995,6 +995,174 @@ ex_stratified = df.groupby("Area", group_keys=False).sample(
 print(ex_stratified)
 print(ex_stratified["Area"].value_counts(normalize=True)*100)
 
+# Tại sao Stratified quan trọng hơn Random?
+# Nếu random sampling "xui" bỏ sót khu vực CT (chỉ có 10%),
+# mọi kết luận về CT sẽ sai.
+# Stratified đảm bảo mọi nhóm đều được đại diện.
+
+# ✏️  Tóm tắt 1 dòng: Random = nhanh;
+#     Stratified = chính xác hơn khi data có nhóm không đều nhau.
+
+
+# -----------------------------------------------------------------------------
+# 2.6 loc và iloc — Truy Cập Nâng Cao
+# -----------------------------------------------------------------------------
+
+orders = pd.DataFrame({
+    "SanPham": ["Ao", "Quan", "Giay", "Tui", "Mu"],
+    "GiaBan": [200, 350, 500, 450, 120],
+    "SoLuong":[50, 30, 20, 15, 80],
+    "DanhMuc":["Maymac", "Maymac", "Phukien", "Phukien", "Maymac"]
+}, index =["DH001", "DH002", "DH003", "DH004", "DH005"])
+
+print(orders)
+
+
+# --- .loc → dùng NHÃN (label) ---
+print(orders.loc["DH003"])
+print(orders.loc["DH001":"DH003"])
+print(orders.loc["DH004", "SoLuong"])
+print(orders.loc[:,"GiaBan"])
+print(orders.loc[:,["SanPham", "SoLuong"]])
+
+
+# --- .iloc → dùng SỐ VỊ TRÍ (positon) ---
+print(orders.iloc[2])
+print(orders.iloc[0:3])
+print(orders.iloc[2,1])
+print(orders.iloc[:,2])
+print(orders.iloc[1:3,0:2])
+
+# Khi nào dùng loc, khi nào dùng iloc?
+# ┌────────────────────────────────┬────────────────────────────────┐
+# │ Tình huống                     │ Dùng                           │
+# ├────────────────────────────────┼────────────────────────────────┤
+# │ Biết tên hàng/cột              │ .loc["DH001", "GiaBan"]        │
+# │ Biết vị trí số                 │ .iloc[0, 1]                    │
+# │ Index là số bình thường (0,1…) │ Cả hai đều được                │
+# │ Index là string (mã, tên…)     │ Bắt buộc dùng .loc             │
+# │ Muốn lấy n hàng đầu/cuối      │ .iloc                          │
+# └────────────────────────────────┴────────────────────────────────┘
+
+# ✏️  Tóm tắt 1 dòng: loc = dùng TÊN; iloc = dùng SỐ.
+
+
+# -----------------------------------------------------------------------------
+# 2.7 Filtering — Lọc Dữ Liệu
+# -----------------------------------------------------------------------------
+
+
+# Đây là kỹ năng dùng HÀNG NGÀY trong Data Science.
+
+nv = pd.DataFrame({
+    "Ten":    ["An", "Bình", "Chi", "Duy", "Em", "Phúc"],
+    "Phong":  ["IT", "KD",   "IT",  "HR",  "KD", "IT"],
+    "Luong":  [15, 20, 18, 12, 22, 16],   # triệu
+    "Nam":    [3,  5,  4,  2,  6,  1]     # năm kinh nghiệm
+})
+
+high_salary = nv[nv["Luong"]>17]
+it = nv[nv["Phong"]=="IT"]
+
+
+# Lọc nhiều điều kiện
+# ⚠️  Dùng & (và), | (hoặc), ~ (phủ định) — KHÔNG dùng and/or
+# ⚠️  PHẢI có ngoặc () quanh mỗi điều kiện
+
+it_high_salary = nv[(nv["Phong"]=="IT")&(nv["Luong"]>15)]
+kd_hr = nv[(nv["Phong"]=="KD")|(nv["Phong"]=="HR")]
+not_it = nv[nv["Phong"]!="IT"]
+not_it2 = nv[~(nv["Phong"]=="IT")]
+
+# isin() → lọc nhiều giá trị cùng lúc
+kd_hr2 = nv[nv["Phong"].isin(["KD", "HR"])]
+it_high_salary2 = nv[nv["Phong"].eq("IT")& nv["Luong"].gt(15)]#eq = equal, gt = greater than
+
+
+# between() → lọc khoảng giá trị
+medium_salary = nv[nv["Luong"].between(15,20)]
+
+# str.contains() → lọc theo chuỗi con (dùng cho cột text)
+it_or_hr = nv[nv["Phong"].str.contains("IT|HR")]  # lọc những người làm IT hoặc HR
+
+san_pham = pd.DataFrame({"Ten": ["Áo thun", "Áo khoác", "Quần jeans", "Áo polo"]})
+Danhmuc_ao = san_pham[san_pham["Ten"].str.contains("Áo")]
+
+# str.startswith() → lọc theo chuỗi bắt đầu
+it_start = nv[nv["Phong"].str.startswith("IT")]
+
+# str.endswith() → lọc theo chuỗi kết thúc
+it_end = nv[nv["Phong"].str.endswith("IT") ]
+
+
+# -----------------------------------------------------------------------------
+# 2.8 Thêm, Sửa, Xóa Cột
+# -----------------------------------------------------------------------------
+
+nv = pd.DataFrame({
+    "Ten":   ["An", "Bình", "Chi", "Duy"],
+    "Luong": [15, 20, 18, 12],
+    "Phong": ["IT", "KD", "IT", "HR"]
+})
+nv["Thue"] = nv["Luong"] * 0.1
+nv["LuongSauThue"] = nv["Luong"] - nv["Thue"]
+nv["CapBac"] = nv["Luong"].apply(lambda x : "Senior" if x >= 18 else "Junior")
+
+
+# Sửa giá trị
+nv["Phong"] = nv["Phong"].replace({"KD": "Kinh doanh", "HR": "Nhân sự"})  #Sửa cả cột theo mapping
+nv.loc[nv["Ten"] == "An", "Luong"] = 17                                   #Sửa một ô duy nhất
+nv.loc[nv["Ten"] == "Duy", ["Luong", "Phong"]] = [13, "Hành chính"]       #Sửa nhiều cột cùng lúc
+nv.loc[nv["Luong"]>18, "CapBac"] = "Trưởng phòng"                         #Sửa theo điều kiện
+nv.loc[nv["Luong"]==20, "Highest Salary"] = True                          #Thêm cột mới dựa trên điều kiện
+
+print(nv)
+
+# -----------------------------------------------------------------------------
+# 2.10 GroupBy — Nhóm và Tổng Hợp
+# -----------------------------------------------------------------------------
+
+# GroupBy là tính năng MẠNH NHẤT của Pandas.
+# Tư duy: "Tính X cho mỗi nhóm Y"
+
+
+wk = pd.DataFrame({
+    "Ten":   ["An", "Bình", "Chi", "Duy", "Em", "Phúc", "Giang"],
+    "Phong": ["IT", "KD",   "IT",  "HR",  "KD", "IT",   "HR"],
+    "Luong": [15,   20,     18,    12,    22,   16,     14],
+    "Nam":   [3,    5,      4,     2,     6,    1,      3]
+}).reset_index()
+
+print(wk)
+
+# GroupBy cơ bản: "Tính trung bình lương theo từng phòng"
+mean_salary = wk.groupby("Phong")["Luong"].mean()
+print(mean_salary)
+
+
+# Nhiều hàm tổng hợp cùng lúc
+tonghop = wk.groupby("Phong")["Luong"].agg(["mean","sum", "min", "max"])
+print(tonghop)
+
+
+room_df = wk.groupby("Phong")["Luong"].mean().reset_index()
+print(f"room df:{room_df}")
+ 
+
+# reset_index: chuyển kết quả GroupBy thành DataFrame bình thường
+
+# GroupBy theo nhiều cột
+
+df2 = pd.DataFrame({
+    "Thang":[1,1,2,2,1,2],
+    "SP": ["A","B","A","B","A","B"],
+    "Doanh": [100,200,150,180,120,220]
+})
+
+tong_thang_sp = df2.groupby(["Thang","SP"])["Doanh"].sum().reset_index()
+print(tong_thang_sp)
+
+# ✏️  Tóm tắt 1 dòng: groupby("cột")["cột_khác"].hàm() = tính hàm đó cho từng nhóm.
 
 
 
@@ -1052,3 +1220,305 @@ print(ex_stratified["Area"].value_counts(normalize=True)*100)
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+print("It's not hard, it's just new.")
