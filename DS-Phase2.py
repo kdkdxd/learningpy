@@ -1425,7 +1425,7 @@ sns.scatterplot(data=df, x="Nam", y="Luong", hue="Phong",
 # Highlight outlier
 outlier = df.nlargest(1, "Luong").iloc[0]
 ax.annotate(f"Outlier: {outlier['Luong']:.1f}M\n({outlier['Phong']}, {outlier['Nam']} năm)",
-            xy=(outlier["Nam"], outlijer["Luong"]),
+            xy=(outlier["Nam"], outlier["Luong"]),
             xytext=(outlier["Nam"]-2, outlier["Luong"]-3),
             arrowprops=dict(arrowstyle="->", color="black"),
             fontsize=9, color="black",
