@@ -666,7 +666,7 @@ tv_luong    = df["Luong"].median()
 df["Luong"] = df["Luong"].fillna(tv_luong)  # điền bằng trung vị (tốt hơn khi có outliers)
 
 # Điền forward fill (tốt cho dữ liệu chuỗi thời gian)
-# df["Luong"] = df["Luong"].fillna(method="ffill")
+df["Luong"] = df["Luong"].ffill()
 
 # Quy tắc chọn cách xử lý NaN:
 # - Ít dữ liệu thiếu (<5%)      → dropna()

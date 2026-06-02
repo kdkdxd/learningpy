@@ -1119,6 +1119,54 @@ nv.loc[nv["Luong"]==20, "Highest Salary"] = True                          #Thêm
 print(nv)
 
 # -----------------------------------------------------------------------------
+# 2.9 Xử Lý Dữ Liệu Thiếu (Missing Data)
+# -----------------------------------------------------------------------------
+import pandas as pd
+import numpy as np
+
+# Dataset có missing values (NaN = Not a Number)
+dfnan = pd.DataFrame({
+    "Ten":    ["An", "Bình", None,   "Duy",    "Em"],
+    "Tuoi":   [25,    np.nan, 28,    30,        np.nan],
+    "Luong":  [15000, 20000,  18000, np.nan,    22000],
+    "Kinh":   [3,     5,      4,     2,         6]
+})
+print(dfnan)
+
+#Phát hiện Missing Data
+print(dfnan.isnull())                       #  True = bị thiếu
+print(dfnan.isnull().sum())                 # Đếm số Nan mỗi cột
+print(dfnan.isnull().sum() / len(dfnan))    # Tính phần trăm Nan
+
+# Xóa hàng có NaN
+print(dfnan.dropna())                             # Xóa bất kì hàng nào có 
+print(dfnan.dropna(subset = ["Luong", "Tuoi"]))   # Xóa hàng có cột lương và tuổi bị Nan
+print(dfnan.dropna(thresh = 3))                   # Giữ hàng có ít nhất 3 giá trị ko Nan
+
+# Điền giá trị vào chỗ thiếu
+dfnan["Ten"] = dfnan["Ten"].fillna("Không rõ")
+
+mean_luong = dfnan["Luong"].mean()   # điền bằng trung bình
+dfnan["Luong"] = dfnan["Luong"].fillna(mean_luong)  
+
+median_luong = dfnan["Luong"].median()# điền bằng trung vị ( tốt hơn nếu có outliers)
+dfnan["Luong"] = dfnan["Luong"].fillna(median_luong)
+dfnan["Luong"] = dfnan["Luong"].fillna(dfnan["Luong"].mean())
+
+dfnan["Luong"] = dfnan["Luong"].ffill()  # forward fill
+dfnan["Luong"] = dfnan["Luong"].bfill()  # backward fill
+# tốt cho dữ liệu chuỗi thới gian
+
+
+# Quy tắc chọn cách xử lý NaN:
+# - Ít dữ liệu thiếu (<5%)      → dropna()
+# - Nhiều thiếu, cột số         → fillna(mean) hoặc fillna(median)
+# - Chuỗi thời gian             → fillna(method="ffill")
+# - Cột text                    → fillna("Unknown")
+
+
+
+# -----------------------------------------------------------------------------
 # 2.10 GroupBy — Nhóm và Tổng Hợp
 # -----------------------------------------------------------------------------
 
@@ -1165,22 +1213,56 @@ print(tong_thang_sp)
 # ✏️  Tóm tắt 1 dòng: groupby("cột")["cột_khác"].hàm() = tính hàm đó cho từng nhóm.
 
 
+# -----------------------------------------------------------------------------
+# 2.11 Apply & Map — Biến Đổi Dữ Liệu
+# -----------------------------------------------------------------------------
+
+# --- map() — Áp dụng trên từng phần tử của Series ---
+
+dfmap = pd.DataFrame({
+    "Ten":  ["An", "Bình", "Chi", "Duy"],
+    "Diem": [8.5, 6.5, 9.0, 5.0]
+})
+# Dùng dict để map giá trị
+rank_dict = {8.5:"Gioi", 6.5:"Kha", 9.0:"Xuat Sac", 5.0:"Trung Binh"}
+dfmap["Xep Loai"] = dfmap["Diem"].map(rank_dict)
+
+# Dùng hàm lambda để tính toán
+dfmap["Diem/100"] = dfmap["Diem"].map(lambda d : d*10)
 
 
+# --- apply() — Áp dụng hàm phức tạp hơn ---
+
+dfapl = pd.DataFrame({
+    "Ten":   ["An", "Bình", "Chi", "Duy"],
+    "Luong": [15,   20,     18,    12],   # triệu
+    "Nam":   [3,    5,      4,     2]
+})
+
+def xep_cap(luong):
+    if luong >=20:
+        return "Senior"
+    elif luong >= 15:
+        return "Mid"
+    else:
+        return "Junior"
+    
+
+dfapl["Cap"] = dfapl["Luong"].apply(xep_cap)
+
+print(dfapl)
 
 
+# apply trên nhiều cột (axis=1: đọc từng hàng)
+def luong_thuc_nhan(hang):
+    if hang["Nam"] >= 5:
+        bonus = hang["Luong"] * 0.15   # bonus 15%
+    else:
+        bonus = hang["Luong"] * 0.05   # bonus 5%
+    return hang["Luong"] + bonus
 
-
-
-
-
-
-
-
-
-
-
-
+dfapl["Luong_thuc_nhan"] = dfapl.apply(luong_thuc_nhan, axis = 1)
+print(dfapl)
 
 
 

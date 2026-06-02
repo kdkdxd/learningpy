@@ -317,7 +317,7 @@ print(f"{salary_pct.round(1)}%")
 ex_random = df.sample(n=5, random_state = 42)
 print(f"Ex Random{ex_random[["Name","Phong","Luong"]]}")
 
-ex_stratified = df.groupby("Phong", group_keys =False).sample(
+ex_stratified = df.groupby("Phong", group_keys = False).sample(
     frac = 0.5,
     random_state = 42
 )
