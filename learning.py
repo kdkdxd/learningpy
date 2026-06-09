@@ -1760,5 +1760,4 @@ plt.show()
 
 
 
-
 print("It's not hard, it's just new.")
