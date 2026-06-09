@@ -1478,8 +1478,7 @@ fig, ax = plt.subplots(figsize=(8,5))
 bars = ax.bar(phong,luong_tb2,
               color=["#2196F3", "#FF5722", "#4CAF50", "#FF9800"],
               edgecolor="white",
-              width=0.8
-              )
+              width=0.8)
 
 # ax.bar_label() : chữ sẽ hiện trên từng cột
 
