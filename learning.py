@@ -1264,97 +1264,256 @@ def luong_thuc_nhan(hang):
 dfapl["Luong_thuc_nhan"] = dfapl.apply(luong_thuc_nhan, axis = 1)
 print(dfapl)
 
+# -----------------------------------------------------------------------------
+# 2.12 Merge & Join — Ghép Bảng
+# -----------------------------------------------------------------------------
+
+# Giống JOIN trong SQL — ghép 2 bảng dữ liệu lại với nhau.
+
+
+don_hang = pd.DataFrame({
+    "MaDH":     [1,      2,      3,      4],
+    "MaKH":     ["KH01", "KH02", "KH01", "KH03"],
+    "SanPham":  ["Áo",   "Quần", "Giày", "Mũ"],
+    "GiaTri":   [200000, 350000, 500000, 120000]
+})
+
+khach_hang = pd.DataFrame({
+    "MaKH":    ["KH01", "KH02", "KH03", "KH04"],
+    "TenKH":   ["An",   "Bình", "Chi",  "Duy"],
+    "ThanhPho":["HCM",  "HN",   "DN",   "HCM"]
+})
+
+# how = outer : giữ tất cả hai bảng
+result = pd.merge(don_hang, khach_hang,on ="MaKH", how = "outer"  )
+print(result)
+
+# inner join: chỉ giữ hàng KHỚP ở CẢ 2 bảng (mặc định)
+result_inner = pd.merge(don_hang, khach_hang, on = "MaKH", how = "inner")
+print(result_inner)
+
+# left join : nếu ko ghép được x thì giữ bảng trái
+result_left = pd.merge(don_hang, khach_hang, on = "MaKH", how ="left")
+print(result_left)
+
+# right join, nếu ko ghép được x thì giữ bảng phải
+
+result_right = pd.merge(don_hang, khach_hang, on = "MaKH", how = "right")
+print(result_right)
+
+# concat() : ghép theo chiều dọc - chỉ nối thêm hàng
+thang1 = pd.DataFrame({"SP": ["A","B"], "Doanh": [100, 200]})
+thang2 = pd.DataFrame({"SP": ["A","C"], "Doanh": [150, 180]})
+both1and2 = pd.concat([thang1, thang2], ignore_index = True)
+print(both1and2)
+
+# -----------------------------------------------------------------------------
+# 2.13 Xử Lý Thời Gian (DateTime)
+# -----------------------------------------------------------------------------
+
+dfdaytime = pd.DataFrame({
+    "NgayBan": ["2024-01-15", "2024-02-20", "2024-03-05"],
+    "Doanh":   [500000,       750000,        300000]
+})
+
+# Chuyển string thành datetime
+dfdaytime["NgayBan"] = pd.to_datetime(dfdaytime["NgayBan"])
+print(dfdaytime)
+print(dfdaytime.dtypes)
 
+# Trích xuất thành phần thời gian
+dfdaytime["Nam"] = dfdaytime["NgayBan"].dt.year
+dfdaytime["Thang"] = dfdaytime["NgayBan"].dt.month
+dfdaytime["Ngay"] = dfdaytime["NgayBan"].dt.day
+dfdaytime["Thu"] = dfdaytime["NgayBan"].dt.day_name()
 
+print(dfdaytime)
 
+# Lọc theo khoảng thời gian
+q1_2024 = dfdaytime[(dfdaytime["NgayBan"] >= "2024-01-15")&
+                    (dfdaytime["NgayBan"] <= "2024-03-25")]
+print(q1_2024)
+
+# Groupby theo tháng
+theo_thang = dfdaytime.groupby(dfdaytime["NgayBan"].dt.month)["Doanh"].sum()
+print(f"Theo thang{theo_thang}")
+ 
+# -----------------------------------------------------------------------------
+# 2.14 Các Hàm Tiện Ích Hay Dùng
+# -----------------------------------------------------------------------------
+
+
+df14 = pd.DataFrame({
+    "SP":     ["Áo", "Quần", "Áo", "Giày", "Quần", "Áo"],
+    "Doanh":  [200, 350, 220, 500, 400, 180],
+    "Phong":  ["HCM","HN","HCM","DN","HN","HCM"]
+})
+
+# value_counts() → đếm số lần xuất hiện của mỗi giá trị
+print(df14["SP"].value_counts())
+print(df14["Phong"].value_counts())
+
+
+# unique() và nunique() → các giá trị duy nhất
+print(df14["SP"].unique())
+print(df14["Phong"].nunique())
+
+# sort_values() → sắp xếp
+df14_sorted = df14.sort_values("Doanh", ascending = False) # Giảm dần
+df14_multi = df14.sort_values(["Doanh", "Phong"]) #nếu ghi Phòng trước, Doanh sau thì sẽ xét Phòng 
+print(f"DF14 Sorted: {df14_sorted}")               # theo thứ tự bảng chữ cái trước
+print(f"DF14 Multi Sorted {df14_multi}")
+
+# duplicated() và drop_duplicates()  -> xử lý trùng lặp
+print(df14.duplicated())    # False thì ko trùng, True thì trùng
+print(df14.drop_duplicates())  # Xóa hàng trùng
 
+# cut() → chia giá trị liên tục thành nhóm (bins)
+diem14 = pd.Series([5, 6.5, 7, 8, 8.5, 9, 4, 7.5])
+phan_loai = pd.cut(diem14,
+                   bins = [0, 5, 6.5, 8, 10],
+                   labels = ["Low", "Average","Good","Excellent"])
+print(diem14)
+print(phan_loai)
 
+diem_xeploai1 = pd.concat([diem14, phan_loai], axis =1)
+print(f"Diem xep loai 1{diem_xeploai1}")
 
+diem_xeploai2 = pd.DataFrame({
+    "Diem":diem14,
+    "Xep Loai": phan_loai
+})
 
+print(f"Diem xep loai 2: {diem_xeploai2}")
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+df14 = pd.DataFrame({
+    "SP":     ["Áo", "Quần", "Áo", "Giày", "Quần", "Áo"],
+    "Doanh":  [200, 350, 220, 500, 400, 180],
+    "Phong":  ["HCM","HN","HCM","DN","HN","HCM"]
+})
+
+pivot_table14 = df14.pivot_table(                    # Giống df14.groupby(["Phong", "SP"])["Doanh"].sum()
+                                 values = "Doanh",   # Lấy cột "Doanh" để tính toán
+                                 index = "Phong",    # Lấy "Phong" làm hàng
+                                 columns = "SP",     # Lấy "SP" làm cột
+                                 aggfunc = "sum",    # Cách gộp nếu bị trùng
+                                 fill_value = 0)     # Nếu ko có data thì thay = 0
+
+print(pivot_table14)
+
+print(df14.groupby(["Phong", "SP"])["Doanh"].sum())
+
+
+# =============================================================================
+# PHẦN 4: MATPLOTLIB & SEABORN
+# =============================================================================
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
+import numpy as np
+
+# Matplotlib = nền tảng, kiểm soát toàn bộ
+# Seaborn    = xây trên Matplotlib, đẹp hơn, dễ hơn, tích hợp tốt với Pandas
+
+
+# -----------------------------------------------------------------------------
+# 4.2 Matplotlib Cơ Bản
+# -----------------------------------------------------------------------------
+
+# --- Cấu trúc một biểu đồ Matplotlib ---
+fig,ax= plt.subplots(figsize=(8,5))  # tạo khung và khu vực vẽ
+
+thang_x = [1,2,3,4,5,6]
+doanhthu_y = [150,200,180,250,300,280]
+
+ax.plot(thang_x, doanhthu_y,
+        color ="red",
+        marker = "o",
+        mfc="black",
+        mec="black",
+        ms=7,
+        linewidth=2,
+        label="Doanh thu")
+
+ax.set_title("Doanh thu 6 tháng đầu năm",  # tạo tên biểu đồ
+             fontsize=20,
+             fontweight="bold",
+             fontname="Arial")
+
+ax.set_xlabel("Tháng",       # tạo tên trục x
+              fontsize =15,
+              fontweight="bold",
+              fontname="Arial")
+
+ax.set_ylabel("Triệu Đồng",  # tạo tên trục y
+              fontsize=15,
+              fontweight="bold",
+              fontname="Arial")
+
+ax.legend()  # thêm chú thích
+ax.grid(True,alpha=0.3, linewidth=1)  # tạo ô nền background
+ax.set_ylim(140,315)
+
+plt.savefig(
+    "linechart1.png",
+    dpi=150,              # độ sắc nét
+    bbox_inches="tight"   # loại bỏ khoảng trắng
+)
+ax.tick_params(axis="both",width=0.7)  # ô kẻ đường
+plt.tight_layout()    # sắp xếp lại để ko bị đè lên nhau hoặc cắt mất  # sắp xếp lại để ko bị đè lên nhau hoặc cắt mất
+plt.show()
+
+
+
+# --- Bar Chart — So Sánh Các Nhóm ---
+
+
+phong    = ["IT", "Kinh doanh", "HR", "Marketing"]
+luong_tb2 = [18.5, 21.0, 13.5, 16.0]   # triệu đồng
+
+# Tạo cột
+fig, ax = plt.subplots(figsize=(8,5))
+bars = ax.bar(phong,luong_tb2,
+              color=["#2196F3", "#FF5722", "#4CAF50", "#FF9800"],
+              edgecolor="white",
+              width=0.8
+              )
+
+# ax.bar_label() : chữ sẽ hiện trên từng cột
+
+# Thêm chữ cho cột
+for bar, val in zip(bars, luong_tb2):
+    ax.text(bar.get_x()+bar.get_width()/2,
+            bar.get_height() + 0.2,
+            f"{val:.1f}",
+            ha="center",      # căn giữa theo chiều ngang (horizontal)
+            va="bottom",      # đáy chữ nằm đúng tọa độ y (vertical)
+            fontname="Arial",
+            fontweight="bold")
+
+ax.set_title("Lương trung bình của từng ban",
+             fontname="Arial",
+             fontsize=20,
+             fontweight="bold")
+
+ax.set_ylabel("Lương(Triệu Đồng)",
+              fontname="Arial",
+              fontsize=12,
+              fontweight="bold")
+
+ax.set_ylim(0,25)
+ax.legend()
+plt.savefig(
+    "barchart1.png",
+    dpi=150,
+    bbox_inches="tight"
+)
+
+plt.tight_layout()
+
+plt.show()
 
 
 

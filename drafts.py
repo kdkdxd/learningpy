@@ -57,24 +57,4 @@ import numpy as np
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 print("It's not hard, it's just new.")

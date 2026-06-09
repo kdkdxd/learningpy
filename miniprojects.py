@@ -409,92 +409,193 @@ print(df)
 print(df.columns.to_list())
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+# =============================================================================
+#  MINI PROJECT: HỆ THỐNG QUẢN LÝ BÁN HÀNG — CÔNG TY ABC
+#  Bao gồm: 2.9 Missing Data · 2.10 GroupBy · 2.11 Apply & Map
+#           2.12 Merge & Join · 2.13 DateTime · 2.14 Hàm tiện ích
+# =============================================================================
+#
+#  Kịch bản: Công ty ABC có 3 bảng dữ liệu thô từ hệ thống cũ:
+#    - don_hang: lịch sử đơn hàng (có missing data)
+#    - san_pham: thông tin sản phẩm
+#    - khach_hang: thông tin khách
+#  Nhiệm vụ: Làm sạch → ghép bảng → phân tích → tổng hợp báo cáo
+# =============================================================================
+
+# =============================================================================
+# MINI PROJECT: HỆ THỐNG QUẢN LÝ BÁN HÀNG — CÔNG TY ABC
+# =============================================================================
+
+np.random.seed(42)
+# =============================================================================
+# DỮ LIỆU THÔ — 3 BẢNG
+# =============================================================================
+
+don_hang = pd.DataFrame({
+    "MaDH":     [f"DH{str(i).zfill(3)}" for i in range(1, 16)],
+    "MaKH":     ["KH001","KH002","KH001","KH003","KH002",
+                 "KH004","KH001","KH003","KH005","KH002",
+                 "KH001","KH004","KH003","KH005","KH002"],
+    "MaSP":     ["SP01","SP02","SP01","SP03","SP02",
+                 "SP01","SP03","SP02","SP01","SP03",
+                 "SP02","SP01","SP03","SP02","SP01"],
+    "SoLuong":  [2, 1, 3, None, 2, 1, 4, 2, None, 1, 3, 2, 1, None, 2],
+    "NgayDat":  ["2024-01-05","2024-01-12","2024-02-03","2024-02-18",
+                 "2024-03-01","2024-03-15","2024-03-22","2024-04-08",
+                 "2024-04-19","2024-05-02","2024-05-14","2024-06-01",
+                 "2024-06-20","2024-07-07","2024-07-25"],
+    "TrangThai":["Hoàn thành","Hoàn thành","Hoàn thành","Đang xử lý",
+                 "Hoàn thành","Hoàn thành","Đang xử lý","Hoàn thành",
+                 "Đã hủy","Hoàn thành","Hoàn thành","Đang xử lý",
+                 "Hoàn thành","Đã hủy","Hoàn thành"],
+    "GhiChu":   [None, "Giao nhanh", None, None, "Hàng tặng",
+                 None, None, "Giao nhanh", None, None,
+                 None, "Hàng tặng", None, None, None]
+})
+ 
+san_pham = pd.DataFrame({
+    "MaSP":   ["SP01",  "SP02",  "SP03"],
+    "TenSP":  ["Áo thun", "Quần jean", "Giày sneaker"],
+    "DonGia": [150000,   350000,      500000],
+    "DanhMuc":["Áo",    "Quần",      "Giày"]
+})
+ 
+khach_hang = pd.DataFrame({
+    "MaKH":    ["KH001","KH002","KH003","KH004","KH005"],
+    "TenKH":   ["Nguyễn An","Trần Bình","Lê Chi","Phạm Duy","Hoàng Em"],
+    "ThanhPho":["HCM",      "HN",       "HCM",   "DN",       "HN"],
+    "Hang":    ["Vàng",     "Bạc",      "Vàng",  "Đồng",     "Bạc"]
+})
+
+
+# =============================================================================
+# XỬ LÝ MISSING DATA [2.9]
+# =============================================================================
+
+# Phat hien NaN
+print("Số NaN mỗi cột")
+print(don_hang.isnull().sum())
+
+print("Phần trăm thiếu mỗi cột")
+print(don_hang.isnull().sum() / len(don_hang) * 100)
+
+# Quyết định xử lý:
+# - SoLuong: NaN vì lỗi nhập liệu → fillna(median) vì có thể có outlier
+# - GhiChu:  NaN là bình thường (không phải lỗi) → fillna("")
+# - TrangThai: không thiếu → bỏ qua
+
+tv_sl = don_hang["SoLuong"].median()
+don_hang["SoLuong"] = don_hang["SoLuong"].fillna(tv_sl)
+don_hang["GhiChu"] = don_hang["GhiChu"].fillna("")
+print(f"Sau khi fillna còn {don_hang.isnull().sum().sum()} NaN") 
+# .sum().sum() : sau khi đếm theo từng cột thì cộng tất cả các cột lại -> = 0
+
+print(don_hang)
+
+
+# dropna với thresh: kiểm tra xem hàng nào "quá thiếu"
+# (ở đây không có hàng nào quá thiếu, nhưng đây là cách làm
+
+truoc = len(don_hang)  # đếm hàng trong DataFrame
+print(truoc)
+don_hang = don_hang.dropna(thresh = 4)  # chỉ giữ hàng có ít nhất 4 giá trị non-NaN
+print(f" Sau khi dropna(thresh=4): {truoc} -> {len(don_hang)}")
+
+# =============================================================================
+# MERGE & JOIN [2.12]
+# =============================================================================
+
+df2 = pd.merge(don_hang, san_pham, on = "MaSP", how = "left")
+print(df2)
+print(f"Số hàng và cột sau khi merge: {df2.shape} hàng, cột")
+
+# Tính doanh thu từng đơn hàng
+df2["DoanhThu"] = df2["SoLuong"]*df2["DonGia"] 
+print(df2)
+
+# concat ví dụ: giả sử nhập thêm đơn mới từ chi nhánh khác
+don_moi = pd.DataFrame({
+    "MaDH": ["DH016","DH017"],
+    "TenKH": ["Khách lẻ","Khách lẻ"],
+    "TenSP": ["Áo thun","Giày sneaker"],
+    "SoLuong": [1, 2],
+    "DonGia": [150000, 500000],
+    "DoanhThu": [150000, 1000000],
+    "NgayDat": ["2024-08-01","2024-08-02"],
+    "TrangThai": ["Hoàn thành","Hoàn thành"],
+    "ThanhPho": ["HCM","HCM"],
+    "Hang": ["Không xác định","Không xác định"],
+    "MaKH": ["KH000","KH000"],
+    "MaSP": ["SP01","SP03"],
+    "DanhMuc": ["Áo","Giày"],
+    "GhiChu": ["",""]
+})
+
+newdf = pd.concat([df2, don_moi], ignore_index = True )
+print(f"Sau khi thêm đơn mới bằng concat():")
+print(newdf)
+print(f"Số hàng và cột sau khi thêm đơn mới:")
+print(newdf.shape)
+
+ 
+# =============================================================================
+# XỬ LÝ DATETIME [2.13]
+# =============================================================================
+
+# Chuyển string thành datetime
+newdf["NgayDat"] = pd.to_datetime(newdf["NgayDat"])
+print(newdf)
+
+# Trích xuất thành phần thời gian
+newdf["Thang"] = newdf["NgayDat"].dt.month
+newdf["Quy"] = newdf["NgayDat"].dt.quarter
+newdf["ThuTuan"] = newdf["NgayDat"].dt.day_name()
+print(newdf)
+
+print("Phân bỏ đơn hàng theo Quý:")
+print(newdf.groupby("Quy")["MaDH"].count().rename("SoDon"))
+
+# Lọc đơn trong Quý 1
+q1  = newdf[(newdf["NgayDat"] >= "2024-01-01")&(newdf["NgayDat"] < "2024-04-01")]
+print(q1)
+print(f"Số đơn Quý 1: {len(q1)} đơn, doanh thu : {q1["DoanhThu"].sum()}")
+
+# Tính số ngày kể từ ngày đặt
+today = pd.Timestamp("2024-08-03")
+newdf["SoNgayTruoc"] = (today - newdf["NgayDat"]).dt.days  # chuyển sang ngày
+print(newdf)
+print(f"Đơn cũ nhất: {max(newdf["SoNgayTruoc"])} ngày trước")
+print(f"Đơn mới nhất: {min(newdf["SoNgayTruoc"])} ngày trước")
+
+# =============================================================================
+# APPLY & MAP [2.11]
+# =============================================================================
+
+# map(): chuyển TrangThai → mã ngắn (dùng dict)
+ma_tt = {"Hoàn thành": "DONE", "Đang xử lý": "PEND", "Đã hủy": "CANC"}
+newdf["MaTT"] = newdf["TrangThai"].map(ma_tt)
+
+
+# map() với lambda: phân loại doanh thu từng đơn
+newdf["PhanLoaiDon"] = newdf["DoanhThu"].map(
+    lambda x : "Lớn" if x >= 1_000_000 else ("Vừa" if x >= 500_000 else "Nhỏ")
+)
+
+print(newdf["PhanLoaiDon"].value_counts())
+print(newdf)
+
+# apply() với axis=1: tính phí ship dựa trên thành phố VÀ hàng khách
+def shipping_fee(hang):
+    if hang["Hang"] == "Vang":
+        return 0
+    elif hang["Hang"] == "Bac":
+        return 15000 if hang["ThanhPho"] == "HCM" else 25000
+    else:
+        return 20000 if hang["ThanhPho"] == "HCM" else 35000
+    
+newdf["PhiShip"] = newdf.apply(shipping_fee, axis = 1)
+newdf["TongTien"] = newdf["DoanhThu"] + newdf["PhiShip"]
+print(newdf[["TenKH", "Hang", "ThanhPho", "DoanhThu", "PhiShip", "TongTien"]].head(6))
 
 
 
