@@ -1230,7 +1230,7 @@ df = pd.DataFrame({
 })
 
 print("=== THÔNG TIN CƠ BẢN ===")
-print(f"Kích thước: {df.shape[0]:,} hàng × {df.shape[1]} cột")
+print(f"Kích thước: {df.shape[0]:,} hàng x {df.shape[1]} cột")
 print(f"\nKiểu dữ liệu:\n{df.dtypes}")
 print(f"\n5 hàng đầu:\n{df.head()}")
 

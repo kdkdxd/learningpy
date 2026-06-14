@@ -1457,18 +1457,17 @@ ax.grid(True,alpha=0.3, linewidth=1)  # tạo ô nền background
 ax.set_ylim(140,315)
 
 plt.savefig(
-    "linechart1.png",
+    "linechart[1].png",
     dpi=150,              # độ sắc nét
     bbox_inches="tight"   # loại bỏ khoảng trắng
 )
 ax.tick_params(axis="both",width=0.7)  # ô kẻ đường
-plt.tight_layout()    # sắp xếp lại để ko bị đè lên nhau hoặc cắt mất  # sắp xếp lại để ko bị đè lên nhau hoặc cắt mất
+plt.tight_layout()    # sắp xếp lại để ko bị đè lên nhau hoặc cắt mất  
 plt.show()
 
 
 
 # --- Bar Chart — So Sánh Các Nhóm ---
-
 
 phong    = ["IT", "Kinh doanh", "HR", "Marketing"]
 luong_tb2 = [18.5, 21.0, 13.5, 16.0]   # triệu đồng
@@ -1505,7 +1504,7 @@ ax.set_ylabel("Lương(Triệu Đồng)",
 ax.set_ylim(0,25)
 ax.legend()
 plt.savefig(
-    "barchart1.png",
+    "barchart[1].png",
     dpi=150,
     bbox_inches="tight"
 )
@@ -1515,30 +1514,304 @@ plt.tight_layout()
 plt.show()
 
 
+# --- Histogram — Phân Phối Dữ Liệu ---
+
+np.random.seed(42)
+
+scores= np.array((np.clip(np.random.normal(loc=6.8,scale=1.67,size=100))).round(1))
 
 
+fig, ax = plt.subplots(figsize=(8,5))
+ax.hist(
+    scores,
+    color="yellow",
+    edgecolor="black",
+    bins=15,
+    alpha=0.7
+)
+
+ax.set_title(
+    "Phân phối điểm của học sinh",
+    font="Arial",
+    fontweight="bold",
+    fontsize=25
+)
+
+ax.set_xlabel(
+    "Điểm",
+    font="Arial",
+    fontsize=15,
+    fontweight="bold"
+)
+
+ax.set_ylabel(
+    "Sô học sinh",
+    font="Arial",
+    fontsize=15,
+    fontweight="bold"
+)
+
+ax.set_ylim(0,25)
+ax.set_xlim(0,10)
+
+ax.axvline(
+    scores.mean(),
+    color="red",
+    linestyle="-",
+    linewidth=1,
+    label=f"Trung bình :{scores.mean():.2f}"    #thêm đường thẳng
+)
+
+ax.axvline(
+    np.median(scores),
+    color="blue",
+    linestyle="--",
+    linewidth=1,
+    label=f"Trung vị {np.median(scores):.2f}"   # thêm đường thẳng
+)
+
+ax.legend()
+
+plt.tight_layout()
+
+plt.savefig(
+    "histogram[1].png",
+    dpi=150,
+    bbox_inches="tight"
+
+)
+plt.show()
 
 
+# --- Scatter Plot — Mối Quan Hệ Giữa 2 Biến ---
+
+n=100
+experience = np.random.randint(1,16,n)
+luong = experience*2 + np.random.randn(n) +8 
+fig, ax = plt.subplots(figsize=(8,5))
+
+ax.scatter(
+    experience,
+    luong,
+    color="red",
+    edgecolor="white",
+    alpha=0.5,
+    s=150,
+    label=f"IT"
+)
+
+m=57
+experience_m = np.random.randint(1,16,m)
+luong_m = experience_m *1.5 + np.random.randn(m)+8 
+
+ax.scatter(
+    experience_m,
+    luong_m,
+    color="blue",
+    edgecolor="white",
+    alpha=0.5,
+    s=150,
+    label=f"Marketing"
+)
+
+z1 = np.polyfit(experience,luong,1)
+p1 = np.poly1d(z1)
+nn1 = np.linspace(1,16,100)
+ax.plot(nn1, p1(nn1), color="#27F573", linewidth=3 ,label=f"Trend line IT")
+
+z2 = np.polyfit(experience_m,luong_m,1)
+p2 = np.poly1d(z2)
+nn2 = np.linspace(1,16,100)
+ax.plot(nn2, p2(nn2), color="#F527CF", linewidth=3, label=f"Trend line MKT" )
+
+ax.set_title(
+    "Mối quan hệ giữ Ex và Salary của phòng IT, Marketing",
+    fontname="Arial",
+    fontsize=18,
+    fontweight="bold"
+)
+
+ax.set_xlabel(
+    "Experiences",
+    fontname="Arial",
+    fontsize=14
+)
+
+ax.set_ylabel(
+    "Salary",
+    fontname="Arial",
+    fontsize=14
+)
+
+ax.legend()
+plt.tight_layout()
+
+plt.savefig(
+    "scatter[1].png",
+    dpi=150,
+    bbox_inches="tight"
+)
+plt.show()
 
 
+# --- Subplots — Nhiều Biểu Đồ Cùng Lúc ---
+
+np.random.seed(42)
+
+thang_x = [1,2,3,4,5,6]
+doanhthu_y = [150,200,180,250,300,280]
+
+phong    = ["IT", "Kinh doanh", "HR", "Marketing"]
+luong_tb2 = [18.5, 21.0, 13.5, 16.0]   # triệu đồng
+
+scores_hist = np.random.normal(loc=6.8, scale=1.7, size = 100).round(1)
+
+n=100
+ex_it = np.random.randint(1,15,n)
+sa_it = ex_it*2 + np.random.randn(n) + 8
+
+m=75
+ex_m = np.random.randint(1,15,n)
+sa_m = ex_m*1.5 + np.random.randn(n) + 7.5
+
+fig, axes = plt.subplots(2,2 , figsize=(12,8))  #Subplots 2x2
+
+#linechart1
+axes[0,0].plot(thang_x, doanhthu_y,
+               color="red",
+               marker="o",
+               mfc="black",
+               ms=5,
+               mec="black",
+               linewidth=1.4,
+               label="Triệu đồng"
+)
+
+axes[0,0].set_title("LineChart 1", fontsize=17, fontname="Arial",fontweight="bold")
+axes[0,0].set_xlabel("Tháng", fontsize=15, fontname="Arial")
+axes[0,0].set_ylabel("Doanh thu", fontsize=15, fontname="Arial")
+axes[0,0].grid(True, alpha=0.7, linewidth=1)
+
+#barchart1
+axes[0,1].bar(phong, luong_tb2,
+              color=["#2196F3", "#FF5722", "#4CAF50", "#FF9800"],
+              width=0.67,
+              edgecolor="black",
+              label=f"Triệu đồng"
+)
+
+axes[0,1].set_title("BarChart 1", fontsize=17, fontname="Arial",fontweight="bold")
+axes[0,1].set_xlabel("Phòng", fontsize=15, fontname="Arial")
+axes[0,1].set_ylabel("Lương TB", fontsize=15, fontname="Arial")
+
+#histogram1
+axes[1,0].hist(
+    scores_hist,
+    color="yellow",
+    edgecolor="black",
+    bins=20,
+    alpha=0.7
+)
 
 
+axes[1,0].set_title("Phân phối điểm của HS", fontsize=17, fontname="Arial", fontweight ="bold")
+axes[1,0].set_xlabel("Điểm", fontsize=15, fontname="Arial")
+axes[1,0].set_ylabel("Số học sinh", fontsize=15, fontname="Arial")
+
+axes[1,0].axvline(
+    scores_hist.mean(),
+    color="red",
+    linestyle="-",
+    linewidth=0.7,
+    label=f"Trung bình: {scores_hist.mean():.2f}"
+)
+
+axes[1,0].axvline(
+    np.median(scores_hist),
+    color="blue",
+    linestyle=":",
+    linewidth=1.2,
+    label=f"Trung vị: {np.median(scores_hist):.2f}"
+)
+
+#scatter1
+axes[1,1].scatter(ex_it, sa_it,
+                  color = "blue",
+                  s =60,
+                  alpha = 0.8,
+                  edgecolor="white",
+                  label="IT")
+
+axes[1,1].scatter(ex_m, sa_m,
+                  color = "red",
+                  s =60,
+                  alpha = 0.8,
+                  edgecolor="white",
+                  label="MKT")
+
+axes[1,1].set_title("MQH giữa Ex và Sa của Phòng IT và MKT",fontsize=17, fontname="Arial", fontweight ="bold")
+axes[1,1].set_xlabel("Experiences",fontsize=15, fontname="Arial")
+axes[1,1].set_ylabel("Salary(Triệu đồng)",fontsize=15, fontname="Arial")
+
+z1 = np.polyfit(ex_it,sa_it,1)
+p1 = np.poly1d(z1)
+x_line1 = np.linspace(1,16,100)
+axes[1,1].plot(x_line1, p1(x_line1), color = "#F527CF", linewidth = 2, label = "IT Trend line")
+
+z2 = np.polyfit(ex_m, sa_m ,1)
+p2 = np.poly1d(z2)
+x_line2 = np.linspace(1,16,100)
+axes[1,1].plot(x_line2, p2(x_line2), color ="#08D453", linewidth = 2, label = "MKT Trend line")
 
 
+axes[0,0].legend()
+axes[0,1].legend()
+axes[1,0].legend()
+axes[1,1].legend()
+
+plt.suptitle("Synthesis Dashboard [1]", fontsize=23, fontname = "Arial", fontweight="bold", color = "#2A079C")
+
+plt.tight_layout()
+
+plt.savefig(
+    "Dashboard[1].png",
+    dpi=150,
+    bbox_inches ="tight"
+)
+
+plt.show()
 
 
+# -----------------------------------------------------------------------------
+# 4.3 Seaborn — Đẹp Hơn, Dễ Hơn
+# -----------------------------------------------------------------------------
+
+import seaborn as sns
 
 
+dfsea = pd.DataFrame({
+    "Phong": np.random.choice(["IT","KD","HR"], 100),
+    "Luong": np.random.normal(loc=18,scale=4,size=100),
+    "Ex":np.random.randint(1,10,100),
+    "Gender": np.random.choice(["Male","Female"],100)
+})
+
+# --- 1. Histogram + KDE (phân phối) ---
 
 
+sns.set_theme(style="whitegrid")
 
+fig, ax = plt.subplots(figsize=(8,5))
 
+sns.histplot(data=dfsea, x = "Luong", bins = 25, color = "blue", kde = "True", ax=ax)
+sns.kdeplot(data=dfsea, x="Luong", bw_adjust=0.5)
+ax.set_title("Phân phối lương", fontname="Arial", fontsize=25, fontweight="bold")
+ax.set_xlabel("Lương(Triệu Đồng)", fontname="Arial", fontsize=15)
+ax.set_ylabel("Số nhân viên", fontname="Arial", fontsize=15)
+ax.set_ylim(0,14)
 
-
-
-
-
-
+plt.tight_layout()
+plt.show()
 
 
 
