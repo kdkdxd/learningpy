@@ -1811,41 +1811,172 @@ ax.set_ylabel("Số nhân viên", fontname="Arial", fontsize=15)
 ax.set_ylim(0,14)
 
 plt.tight_layout()
+
+plt.savefig(
+    "HistplotSB[1].png",
+    dpi=150,
+    bbox_inches ="tight"
+)
+
 plt.show()
 
 
+# --- 2. Boxplot (phân phối theo nhóm) ---
+
+dfsea = pd.DataFrame({
+    "Phong": np.random.choice(["IT","KD","HR"], 100),
+    "Luong": np.random.normal(loc=18,scale=4,size=100),
+    "Ex":np.random.randint(1,10,100),
+    "Gender": np.random.choice(["Male","Female"],100)
+})
+
+fig, ax = plt.subplots(figsize=(8,5))
+                                                     # color trong boxplot chỉ được 1 màu, muốn nhiều màu thì phải xài palette
+sns.boxplot(data = dfsea, x = "Phong", y = "Luong", palette=["#ED2909", "#0B97F4", "#17E665"], ax = ax)
+                                                     # label thì phải xài hue = x x x
+ax.set_title("Phân phối lương theo phòng", fontname="Arial", fontsize = 25,fontweight="bold")
+ax.set_xlabel("Phòng", fontname="Arial", fontsize=15)
+ax.set_ylabel("Lương(Triệu đồng)", fontname="Arial", fontsize = 15)
+
+plt.tight_layout()
+
+plt.savefig(
+    "BoxplotSB[1].png",
+    dpi=150,
+    bbox_inches ="tight"
+)
+
+plt.show()
 
 
+# --- 3. Barplot (trung bình theo nhóm) ---
 
+dfsea = pd.DataFrame({
+    "Phong": np.random.choice(["IT","KD","HR"], 100),
+    "Luong": np.random.normal(loc=18,scale=4,size=100),
+    "Ex":np.random.randint(1,10,100),
+    "Gender": np.random.choice(["Male","Female"],100)
+})
 
+fig, ax  = plt.subplots(figsize=(8,5))
+sns.barplot(data =dfsea, x="Phong", y="Luong", palette="coolwarm",hue="Gender",errorbar = "sd",ax=ax)   # x="Phong" : chia theo phòng ban, hue = "Gender" : tách thêm theo giới tính
+ax.set_title("Trung bình lương theo nhóm(Gender)", fontname="Arial", fontsize = 20, fontweight="bold")
+ax.set_xlabel("Phòng", fontname="Arial", fontsize=15)
+ax.set_ylabel("Lương(Triệu đồng)", fontname="Arial", fontsize=15)
+                                                  # barplot tự động tính trung bình
+                                                  # đường màu đen là std, càng dài càng chênh lệch nhiều, ngắn thì ko chênh lệch đáng kể
+plt.tight_layout()
 
+plt.savefig(
+    "BarplotSB[1].png",
+    dpi=150,
+    bbox_inches ="tight"
+)
 
+plt.show()
 
+# --- 4. Scatterplot ---
+fig, ax = plt.subplots(figsize=(10,7))
 
+sns.scatterplot(data = dfsea, x="Ex", y="Luong", hue="Phong",palette=["red","skyblue","yellow"],edgecolor="black",s=55, ax=ax)
+ax.set_title("Mối quan hệ giữa kinh nghiệm và lương của từng phòng", fontname="Arial",fontsize=20, fontweight="bold")
+ax.set_xlabel("Experiences(Years)", fontname="Arial", fontsize=15)
+ax.set_ylabel("Salary(Triệu đồng)", fontname="Arial", fontsize=15)
+ax.set_ylim(5,31)
 
+plt.tight_layout()
 
+plt.savefig(
+    "ScatterplotSB[1].png",
+    dpi=150,
+    bbox_inches ="tight"
+)
 
+plt.show()
 
+# --- 5. Heatmap — Tương Quan Giữa Các Biến ---
+corr_matrix = dfsea[["Luong","Ex"]].corr()  # tạo corr matrix
 
+fig, ax = plt.subplots(figsize=(6,5))
+#annot = True : hiện số, cmap = colormap, vmin vmax ste limit, fmt = format của số 
+sns.heatmap(corr_matrix, annot = True, cmap="coolwarm", vmin=-1, vmax=1,fmt=".2f", ax=ax)
+ax.set_title("Tương quan giữa Ex và Salary", fontname="Arial", fontsize=22, fontweight="bold")
+plt.tight_layout()
 
+plt.savefig(
+    "HeatmapSB[1].png",
+    dpi=150,
+    bbox_inches ="tight"
+)
 
+plt.show()
 
+# --- 6. Pairplot — Tương Quan Tất Cả Các Biến ---
+# Dùng khi muốn cái nhìn tổng quan về dataset
 
+sns.pairplot(dfsea[["Luong","Ex"]], diag_kind="kde", diag_kws={"bw_adjust":0.5, "linewidth":1})
+plt.suptitle("Pairplot", fontname ="Arial", fontsize = 20, fontweight= "bold")
+plt.tight_layout()
 
+plt.savefig(
+    "PairplotSB[1].png",
+    dpi=150,
+    bbox_inches ="tight"
+)
 
+plt.show()
 
+#                          --------------------DASHBOARD SEABORN--------------------
 
+import seaborn as sns
+import matplotlib.patheffects as pe
 
+np.random.seed(42)
+dfsea = pd.DataFrame({
+    "Phong": np.random.choice(["IT","KD","HR"], 100),
+    "Luong": np.random.normal(loc=18,scale=4,size=100),
+    "Ex":np.random.randint(1,10,100),
+    "Gender": np.random.choice(["Male","Female"],100)
+})
 
+sns.set_theme(style="white")
+fig, axes = plt.subplots(2,3,figsize=(20,12), constrained_layout=True)
 
+sns.histplot( data = dfsea, x = "Luong", bins = 25, kde = True, color = "#F52E07", ax = axes[0,0])
+sns.kdeplot( data = dfsea, x = "Luong", bw_adjust=0.5, ax = axes[0,0])
+axes[0,0].set_title("SeabornHist(Phân phối)", fontsize=18, fontname="Arial", fontweight="bold")
+axes[0,0].set_xlabel("Salary(Triệu đồng)", fontsize = 13, fontname="Arial")
+axes[0,0].set_ylabel("Số nhân viên", fontsize = 13, fontname="Arial")
 
+sns.boxplot(data=dfsea, x = "Phong", y="Luong", palette=["#FF3300", "#00FFFF","#00FF0D"], ax = axes[0,1])
+axes[0,1].set_title("Phân phối lương theo phòng(SB)", fontname="Arial", fontsize=18, fontweight="bold")
+axes[0,1].set_xlabel("Phòng", fontname="Arial", fontsize=13)
+axes[0,1].set_ylabel("Lương(Triệu đồng)", fontname="Arial", fontsize=13)
 
+sns.barplot(data =dfsea, x = "Phong", y="Luong",hue="Gender", palette="coolwarm",errorbar="sd",ax=axes[0,2])
+axes[0,2].set_title("Trung bình lương theo nhóm(Gender)", fontname="Arial", fontsize=15, fontweight="bold")
+axes[0,2].set_xlabel("Phòng", fontname="Arial", fontsize=13)
+axes[0,2].set_ylabel("Lương(Triệu đồng)", fontname="Arial", fontsize=13)
 
+sns.scatterplot(data=dfsea, x = "Ex", y= "Luong",hue="Phong", palette=["#FF002F","#2EC4FF","#00FF44"], s =57,edgecolor="black",ax=axes[1,0])
+axes[1,0].set_title("MQH giữa Salary và Ex(Theo Phòng)", fontname="Arial", fontsize=15, fontweight="bold")
+axes[1,0].set_xlabel("Experiences", fontname="Arial", fontsize=13)
+axes[1,0].set_ylabel("Lương(Triệu đồng)", fontname="Arial", fontsize=13)
 
+corr_matrix = dfsea[["Luong","Ex"]].corr()
+sns.heatmap(corr_matrix, annot=True, vmin=-1, vmax=1, cmap="coolwarm",ax=axes[1,1])
+axes[1,1].set_title("Tương quan giữa Ex và Salary(Heatmap)", fontname="Arial", fontsize=15, fontweight="bold", y=1.007)
 
+fig.delaxes(axes[1,2])
+plt.suptitle("Synthesis Dashboard [2]", fontname="Arial", fontsize=30, fontweight="bold", color="#FFEA2E", path_effects=[pe.withStroke(linewidth=2.2, foreground="black")])
 
+plt.savefig(
+    "DashboardSB[2].png",
+    dpi=150,
+    bbox_inches ="tight"
+)
 
-
+plt.show()
 
 
 
