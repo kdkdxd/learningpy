@@ -599,9 +599,10 @@ print(newdf[["TenKH", "Hang", "ThanhPho", "DoanhThu", "PhiShip", "TongTien"]].he
 
 
 
+                      #===================EDA===================#
 
-
-
+dfEDA = pd.read_csv("employees.csv")
+print(dfEDA)
 
 
 

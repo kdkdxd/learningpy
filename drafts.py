@@ -1,7 +1,14 @@
+
+import numpy as np
+import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
-import pandas as pd
-import numpy as np
+import scipy.stats as stats
+import sys
+
+sys.stdout.reconfigure(encoding="utf-8")
+
+np.random.seed(42)
 
 
 
@@ -22,4 +29,20 @@ import numpy as np
 
 
 
-print("It's not hard, it's just new.")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+print("\n\n\nIt's not hard, It's just new.")

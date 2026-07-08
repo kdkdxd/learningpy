@@ -902,7 +902,7 @@ from scipy import stats
 import numpy as np
 import pandas as pd
 
-# Ví dụ thực tế: A/B test website
+# Ví dụ thực tế: A/B test website   
 np.random.seed(42)
 doanh_thu_A = np.random.normal(loc=2.0, scale=0.5, size=50)  # triệu/người
 doanh_thu_B = np.random.normal(loc=2.3, scale=0.5, size=50)  # nhóm B cao hơn
@@ -1267,9 +1267,9 @@ if n > 0:
         ax.set_title(f"{col}")
         ax.axvline(df[col].mean(),   color="red",    ls="--", lw=1.5, label="Mean")
         ax.axvline(df[col].median(), color="orange", ls="-.", lw=1.5, label="Median")
-        ax.legend(fontsize=8)
+        ax.legend(fontsize=8) 
     plt.suptitle("Phân Phối Các Biến Số", fontsize=14, fontweight="bold")
-    plt.tight_layout()
+    plt.tight_layout()  
     plt.show()
 
 # Câu hỏi 2: Có outliers không?
@@ -1304,7 +1304,7 @@ if n >= 2:
     print(corr_pairs.head())
 
 # Câu hỏi 4: Biến phân loại phân bổ thế nào?
-for col in cat_cols[:3]:
+for col in cat_cols:
     vc = df[col].value_counts()
     fig, ax = plt.subplots(figsize=(8, 4))
     sns.barplot(x=vc.index, y=vc.values, palette="Set2", ax=ax)
@@ -1484,7 +1484,7 @@ plt.show()
 # sns.histplot(kde=True)     → Histogram    | phân phối 1 biến
 # sns.scatterplot()          → Scatter      | mối quan hệ 2 biến
 # sns.boxplot()              → Boxplot      | phân phối + outliers theo nhóm
-# sns.heatmap(corr, annot=True)→ Heatmap   | ma trận tương quan
+# sns.heatmap(corr, annot=True)→ Heatmap    | ma trận tương quan
 
 # ── EDA Checklist (Harvard CS109) ────────────────────────────────────────────
 # □ 1. Đặt ít nhất 3 câu hỏi cụ thể trước khi mở notebook

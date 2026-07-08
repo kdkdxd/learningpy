@@ -1337,7 +1337,7 @@ print(q1_2024)
 # Groupby theo tháng
 theo_thang = dfdaytime.groupby(dfdaytime["NgayBan"].dt.month)["Doanh"].sum()
 print(f"Theo thang{theo_thang}")
- 
+
 # -----------------------------------------------------------------------------
 # 2.14 Các Hàm Tiện Ích Hay Dùng
 # -----------------------------------------------------------------------------
@@ -1403,6 +1403,115 @@ pivot_table14 = df14.pivot_table(                    # Giống df14.groupby(["Ph
 print(pivot_table14)
 
 print(df14.groupby(["Phong", "SP"])["Doanh"].sum())
+
+
+# =============================================================================
+# PHẦN 3: SCIPY.STATS — STATISTICAL TESTING
+# =============================================================================
+
+# Harvard CS109: "visualize thôi chưa đủ — phải kiểm định thống kê
+# để biết kết quả có thực sự ý nghĩa không."
+# Đây là điểm phân biệt Data Scientist với người chỉ biết vẽ biểu đồ.
+
+# 3 khái niệm cốt lõi:
+# ─ p-value: xác suất quan sát kết quả này nếu thực tế KHÔNG có sự khác biệt
+#   p < 0.05  → sự khác biệt có ý nghĩa thống kê
+#   p ≥ 0.05  → chưa đủ bằng chứng, có thể là ngẫu nhiên
+# ─ H₀ (Null):        "không có gì đặc biệt" (2 nhóm có cùng trung bình)
+# ─ H₁ (Alternative): điều bạn muốn chứng minh (nhóm A cao hơn nhóm B)
+
+
+# -----------------------------------------------------------------------------
+# 3.3 t-test — So Sánh 2 Nhóm
+# -----------------------------------------------------------------------------
+
+
+from scipy import stats
+
+np.random.seed(42)
+
+# Independent t-test: so sánh 2 nhóm ĐỘC LẬP
+revenueA = np.random.normal(loc=2.0, scale = 0.5, size=50)
+revenueB = np.random.normal(loc=2.3, scale = 0.5, size=50)
+
+print(f"Trung bình nhóm A : {revenueA.mean():.2f}")
+print(f"Trung bình nhóm B : {revenueB.mean():.2f}")
+print(f"Chênh lệch : {revenueA.mean() - revenueB.mean():.2f}")
+
+t_stat, p_value = stats.ttest_ind(revenueA, revenueB)
+print(f"T-Statistic : {t_stat:.4f}")
+print(f"p-value : {p_value:.4f}")
+
+if p_value < 0.05:
+    print("Sự khác biệt có ý nghĩa thống kê")
+    print("Trang Web B thật sự tốt hơn Trang Web A")
+else :
+    print("Chưa đủ bằng chứng thống kê")
+    print("Sự khác biệt có thể chỉ là ngẫu nhiên")
+
+
+# Paired t-test: so sánh CÙNG 1 đối tượng trước/sau
+
+doanh_so_truoc = np.array([15, 18, 12, 20, 16, 14, 22, 19])
+doanh_so_sau   = np.array([18, 20, 15, 22, 18, 17, 24, 21])
+
+t2, p2 = stats.ttest_rel(doanh_so_sau, doanh_so_truoc)
+print(f"\nPaired t-test p-value : {p2:.2e}")
+
+if p2 < 0.05:
+    print("Training CÓ hiệu quả thống kê")
+else:
+    print("Traning KHÔNG CÓ hiệu quả thống kê")
+
+
+# -----------------------------------------------------------------------------
+# 3.4 Pearson Correlation — Kiểm Định Mối Quan Hệ
+# -----------------------------------------------------------------------------
+
+np.random.seed(42)
+
+ex_pear = np.random.randint(1,15,50)
+salary_pear = ex_pear*1.5 + np.random.randn(50)*2 + 10
+
+r, p_value_pear = stats.pearsonr(ex_pear, salary_pear)
+print(f"r : {r:.3f}")
+print(f"Pearsonr p-value : {p_value_pear:.2e}")
+
+if p_value_pear < 0.05:
+    if r > 0.7:
+        print("Tương quan MẠNH")
+    elif r > 0.3:
+        print("Tương quan VỪA")
+    else:
+        print("Tương quan YẾU dù có ý nghĩa")
+else:
+    print("Chưa đủ bằng chứng thống kê")
+
+# -----------------------------------------------------------------------------
+# 3.5 Normality Test — Kiểm Tra Phân Phối Chuẩn
+# -----------------------------------------------------------------------------
+data_chuan = np.random.normal(0,1,100)
+data_lech = np.random.exponential(1,100)
+
+
+# Shapiro-Wilk test (tốt cho n < 2000)
+# H₀: dữ liệu có phân phối chuẩn
+stat1, p1 = stats.shapiro(data_chuan)
+stat2, p2 = stats.shapiro(data_lech)
+
+print(f"Data chuẩn  → p={p1:.4f}", "✅ Chuẩn" if p1 > 0.05 else "❌ Không chuẩn")
+print(f"Data lệch   → p={p2:.4f}", "✅ Chuẩn" if p2 > 0.05 else "❌ Không chuẩn")
+
+# Nếu không chuẩn → dùng Mann-Whitney U test thay cho t-test
+stat_mw, p_mw = stats.mannwhitneyu(data_chuan, data_lech, alternative="two-sided")
+print(f"\nMann-Whitney p-value: {p_mw:.6f}")
+
+# Quy trình kiểm định (Harvard CS109 approach):
+# 1. Đặt câu hỏi cụ thể ("Nhóm A có tốt hơn B không?")
+# 2. Visualize trước (histogram, boxplot)
+# 3. Kiểm tra phân phối (Shapiro-Wilk)
+# 4. Chọn test phù hợp (t-test nếu chuẩn, Mann-Whitney nếu không)
+# 5. Diễn giải p-value trong ngữ cảnh bài toán
 
 
 # =============================================================================
@@ -1979,35 +2088,150 @@ plt.savefig(
 plt.show()
 
 
+# =============================================================================
+# PHẦN 5: WORKFLOW THỰC TẾ — EDA (Harvard CS109 Style)
+# =============================================================================
+
+# Harvard CS109 nhấn mạnh:
+# "EDA không phải là 'nhìn vào data rồi xem có gì'.
+#  EDA là đặt câu hỏi cụ thể trước, rồi dùng data để trả lời."
+#
+# Trước khi mở notebook, hãy viết ra ít nhất 3–5 câu hỏi:
+#   1. Phòng nào trả lương cao nhất? Thấp nhất?
+#   2. Kinh nghiệm có thực sự tương quan với lương không?
+#   3. Tỉ lệ nam/nữ theo phòng ban như thế nào?
+#   4. Nhân viên nghỉ việc (churn) tập trung ở nhóm nào?
+#   5. Lương phân phối như thế nào — chuẩn hay lệch?
 
 
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+import seaborn as sns
+import scipy.stats as stats
+
+sns.set_theme(style = "whitegrid")
 
 
+# ─── BƯỚC 1: ĐỌC & NHÌN TỔNG QUAN ──────────────────────────────────────────
+# df = pd.read_csv("data.csv")   # ← thay bằng file thực tế của bạn
+
+# Demo với dữ liệu giả:
+np.random.seed(42)
+
+dfeda = pd.DataFrame({
+    "Salary":np.random.normal(18,4,100),
+    "Ex": np.random.randint(1,10,100),
+    "Room": np.random.choice(["IT","KD","HR"],100),
+    "Gender" : np.random.choice(["Male","Female"],100)
+})
+
+print("\n=======================THÔNG TIN CƠ BẢN=======================")
+print(f"Kích thước : {dfeda.shape[0]} hàng x {dfeda.shape[1]} cột.")
+print(f"\nKiểu dữ liệu : {dfeda.dtypes}")
+print(f"\n5 hàng đầu : {dfeda.head()}")
 
 
+# ─── BƯỚC 2: KIỂM TRA CHẤT LƯỢNG DỮ LIỆU ───────────────────────────────────
+missing = dfeda.isnull().sum()
+miss_pct = (missing/len(dfeda)*100).round(2)
+missing_report = pd.DataFrame({
+    "NaN Quantity" : missing,
+    "NaN Percentage": miss_pct
+}).query("`NaN Quantity` > 0").sort_values("Nan Percentage", ascending=False)
 
+print("\n=== DUPLICATE ROWS ===")
+dups = dfeda.duplicated().sum()
+print(f"Số hàng trùng lặp: {dups} ({dups/len(dfeda*100)} %)")
 
+# ─── BƯỚC 3: THỐNG KÊ MÔ TẢ ─────────────────────────────────────────────────
+print("\n=== THỐNG KÊ MÔ TẢ ===")
+print(dfeda.describe().T.round(2))
 
+# ─── BƯỚC 4: ĐẶT CÂU HỎI → VẼ BIỂU ĐỒ ─────────────────────────────────────
 
+so_cols = dfeda.select_dtypes(include = [np.number]).columns.to_list()
+cat_cols = dfeda.select_dtypes(include=["object"]).columns.to_list()
 
+# Câu hỏi 1: Phân phối từng biến số trông như thế nào?
+n = len(so_cols)
+if n > 0:
+    fig, axes = plt.subplots(1,n, figsize = (8*n, 7))
+    if n == 1 : axes = [axes]
+    for col, ax in zip(so_cols, axes):
+        sns.histplot(data = dfeda[col].dropna() ,kde = True, color = "skyblue", bins = 20, ax =ax )
+        ax.axvline(dfeda[col].mean(), color = "red", ls = "--", lw = 1.2, label = "Mean")
+        ax.axvline(dfeda[col].median(), color = "purple", ls ="-", lw = 1.2, label = "Median")
+        ax.set_title(f"{col}", fontname = "Arial", fontsize = 20)
+        ax.legend(fontsize = 15)
+    plt.suptitle("Phân phối các biến số", fontsize = 25, fontname = "Arial",fontweight = "bold" )
+    plt.tight_layout()
+    plt.show()
 
+# Câu hỏi 2: Có outliers không?
+n = len(so_cols)
+if n > 0:
+    fig, axes = plt.subplots(1,n, figsize =(4*n,4),constrained_layout=True)
+    if n == 1: axes = [axes]
+    for cols, ax in zip(so_cols, axes):
+        sns.boxplot(data = dfeda[cols], color = "red", ax=ax, flierprops = dict(alpha=0.6,marker="o", mfc = "blue", mec = "black", label = "outliers"))
+        ax.set_title(f"{cols}", fontname = "Arial", fontsize = 17)
+        ax.legend(fontsize=10)
+    plt.suptitle("Phát hiện ouliers", fontname = "Arial",fontsize =22, fontweight ="bold" )
+    plt.show()
 
+# Câu hỏi 3: Các biến số tương quan với nhau thế nào?
 
+n = len(so_cols)
+if n  >= 2:
+    corr = dfeda[so_cols].corr()
+    fig, ax = plt.subplots(figsize=(max(6, n*1.5), max(5, n *1.2)), constrained_layout=True)
+    mask = np.triu(np.ones_like(corr, dtype = bool))
+    sns.heatmap(corr, cmap = "coolwarm", vmin=-1, vmax = 1, annot = True, fmt=".2f",ax=ax, mask = mask)
+    ax.set_title("Tương quan giữa các biến", fontname = "Arial", fontsize = 20, fontweight = "bold")
+    plt.show()
 
+    top5_corr = (corr.where(~mask).stack().reset_index().rename(columns={"level_0":"Value_1","level_1":"Value_2",0:"r"}))
+    print(f"\n5 Cặp có tương quan mạnh nhất:")
+    print(f"\n{top5_corr.head()}")
+    
 
+# Câu hỏi 4: Biến phân loại phân bổ thế nào?
+for ccol in cat_cols:
+    vc = dfeda[ccol].value_counts()
+    fig, ax = plt.subplots(figsize = (8,6))
+    sns.barplot(vc.index, vc.values, color = "Set2", ax=ax)
+    ax.set_title(f"Phân phối {ccol}", fontname = "Arial", fontsize =18, fontweight = "bold")
+    ax.set_ylabel("Số Lượng", fontname = "Arial", fontsize = 12)
+    for bar,vals in zip(ax.patches, vc.values):
+        ax.text(bar.get_x() + bar.get_width/2,  bar.get_height() + 0.5, f"{vals}", fontname = "Arial", fontsize = 8, ha = "center")
+    plt.tight_layout()
+    plt.show()
 
+# Câu hỏi 5: So sánh nhóm (biến số + biến phân loại)
+if len(so_cols) > 0 and len(cat_cols) > 0 :
+    target_cat = cat_cols[0]
+    target_num = so_cols[0]
 
+    fig , (ax1, ax2) = plt.subplots(1,2, figsize = (12,5))
+    sns.boxplot(data = dfeda, x = target_cat, y = target_num, ax = ax1, palette="Set2")
+    ax1.set_title(f"{target_num} theo {target_cat}")
+    sns.barplot(data = dfeda, x = target_cat, y = target_num, ax = ax2, palette="Set2")
+    ax2.set_title(f"Trung bình {target_num} theo {target_cat}")
+    plt.tight_layout()
+    plt.show()
 
-
-
-
-
-
-
-
-
-
-
+    list_room = [dfeda[target_cat].dropna().unique()]
+    if len(list_room) == 2 :
+        g1 = dfeda[dfeda[target_cat]==list_room[0]][target_num].dropna()
+        g2 = dfeda[dfeda[target_cat]==list_room[1]][target_num].dropna()
+        t1, p1 = stats.ttest_ind(g1,g2)
+        print(f"\nT-test giữa {list_room[0]} và {list_room[1]} : p = {p1:.4f}", "Có ý nghĩa thống kê - thật sự có khác biệt" if p1 <0.05 else "Chưa đủ băng chứng thống kê")
+    else:
+        list_data = [dfeda[dfeda[target_cat]==g][target_num] for g in list_room]
+        t2,p2 = stats.f_oneway(*list_data)
+        print(f"\nAnova Test ({target_cat}, {target_num}) của từng nhóm : p = {p2:.4f}", "Ít nhất 1 nhóm khác biệt" if p2 <0.05 else "Chưa đủ bằng chứng thống kê" )
+ 
 
 
 
