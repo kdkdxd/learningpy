@@ -8,7 +8,7 @@ import sys
 
 sys.stdout.reconfigure(encoding="utf-8")
 
-np.random.seed(1704)
+np.random.seed(170412)
 
 print("==============Revise EDA==============")
 
