@@ -10,7 +10,7 @@ sys.stdout.reconfigure(encoding="utf-8")
 
 np.random.seed(42)
 
-
+print("==============Revise EDA==============")
 
 
 
