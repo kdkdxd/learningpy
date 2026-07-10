@@ -2387,5 +2387,4 @@ if len(so_cols) > 0 and len(cat_cols) > 0 :
 
 
 
-
 print("It's not hard, it's just new.")

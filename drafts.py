@@ -78,9 +78,7 @@ else:
         print("Does not have enough Statistical Evidence => Perhaps Not Different")
 
 
-        
 #Compare Salary between Different Department
-
 group_dept = [group["Salary"].values for name, group in cleaned_em.groupby("Department")]
 h_stat, kw_p = stats.kruskal(*group_dept)
 print(f"\nKruskal pvalue : {kw_p:4f}")
@@ -88,13 +86,6 @@ if kw_p < 0.05 :
     print("Data has at least two Department are Different")
 else:
     print("No Difference => Perhaps random")
-
-
-
-
-
-
-
 
 
 
