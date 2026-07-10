@@ -1,0 +1,301 @@
+Age,Experience,Department,Education,Gender,City,Salary,Performance,Bonus_pct
+50.0,30,Kỹ thuật,,Nam,TP.HCM,42861301.0,6.9,16.6
+36.0,15,HR,Đại học,Nam,TP.HCM,26225590.0,6.8,9.1
+29.0,10,Kỹ thuật,Đại học,Nữ,TP.HCM,20512633.0,5.3,15.6
+42.0,20,Kỹ thuật,Cao đẳng,Nữ,TP.HCM,34814256.0,5.8,7.3
+40.0,19,Kinh doanh,Đại học,Nam,TP.HCM,32225635.0,6.6,16.3
+44.0,24,Kinh doanh,Đại học,Nữ,TP.HCM,,5.9,14.8
+32.0,9,Kinh doanh,Thạc sĩ,Nữ,Hà Nội,17452377.0,,15.4
+32.0,11,Kỹ thuật,Đại học,Nam,TP.HCM,21937878.0,4.3,10.6
+45.0,22,HR,Đại học,Nam,Hà Nội,32419650.0,6.5,22.3
+45.0,26,Kỹ thuật,Cao đẳng,Nam,Đà Nẵng,41947188.0,7.8,20.1
+24.0,2,Kỹ thuật,Cao đẳng,Nữ,Hà Nội,12169160.0,4.3,13.9
+43.0,19,HR,Thạc sĩ,Nam,Hà Nội,30096236.0,6.5,14.1
+23.0,1,Tài chính,Cao đẳng,Nữ,Hà Nội,6630298.0,5.3,13.6
+45.0,24,HR,Cao đẳng,Nữ,TP.HCM,38830808.0,7.6,23.6
+51.0,28,HR,Cao đẳng,Nam,TP.HCM,41428190.0,7.0,16.8
+23.0,0,Marketing,Tiến sĩ,Nữ,Hà Nội,9856724.0,6.6,17.1
+42.0,22,Kinh doanh,Thạc sĩ,Nam,Hà Nội,32008358.0,3.6,11.9
+54.0,30,Kỹ thuật,Đại học,Nam,TP.HCM,43100937.0,10.0,22.8
+33.0,13,Kinh doanh,Đại học,Nữ,Hà Nội,23607865.0,4.7,5.3
+,24,Kinh doanh,Đại học,Nữ,TP.HCM,36870470.0,7.5,19.5
+46.0,22,Kỹ thuật,Thạc sĩ,Nam,TP.HCM,33724901.0,5.4,16.5
+48.0,27,Marketing,Đại học,Nữ,TP.HCM,41334274.0,8.1,16.2
+49.0,29,Kinh doanh,Đại học,Nữ,Hà Nội,41198569.0,7.7,21.3
+37.0,13,Kỹ thuật,Đại học,Nam,Cần Thơ,23386430.0,5.1,14.8
+36.0,13,Kỹ thuật,Cao đẳng,Nữ,TP.HCM,23780443.0,7.6,12.2
+24.0,1,Marketing,Đại học,Nam,TP.HCM,9971658.0,4.8,9.2
+28.0,4,Kỹ thuật,Thạc sĩ,Nam,Hà Nội,13867422.0,6.1,14.1
+42.0,19,HR,Đại học,Nam,TP.HCM,56829553.0,5.1,12.2
+30.0,11,Kinh doanh,,Nữ,Hà Nội,18898828.0,,12.3
+39.0,20,Kinh doanh,Cao đẳng,Nữ,TP.HCM,33916515.0,9.6,21.6
+25.0,1,Kinh doanh,Tiến sĩ,Nam,Cần Thơ,9698471.0,6.5,21.3
+46.0,26,HR,Đại học,Nam,TP.HCM,38077270.0,7.5,18.4
+35.0,15,Kỹ thuật,Thạc sĩ,Nữ,Hà Nội,28326727.0,5.5,11.7
+30.0,6,Marketing,Đại học,Nam,Hà Nội,15373511.0,,13.9
+47.0,27,Kinh doanh,Đại học,Nữ,TP.HCM,42168945.0,7.5,20.4
+23.0,3,Kỹ thuật,Đại học,Nữ,Hà Nội,11701277.0,5.9,14.9
+41.0,22,HR,Cao đẳng,Nam,Hà Nội,37491121.0,5.1,12.1
+49.0,29,Marketing,Đại học,Nữ,TP.HCM,45433011.0,8.3,18.8
+28.0,6,Marketing,Thạc sĩ,Nam,TP.HCM,,3.8,7.5
+29.0,8,HR,Đại học,Nữ,Hà Nội,19057356.0,8.1,18.5
+35.0,12,HR,Đại học,Nữ,Đà Nẵng,23368063.0,4.8,13.0
+38.0,16,Marketing,Cao đẳng,Nữ,Hà Nội,29252947.0,6.7,13.8
+25.0,5,HR,Tiến sĩ,Nam,Cần Thơ,12552614.0,6.9,18.4
+23.0,4,Marketing,Thạc sĩ,Nữ,Hà Nội,13829077.0,4.9,16.5
+27.0,3,Marketing,Đại học,Nam,Đà Nẵng,13187636.0,5.8,15.5
+25.0,5,Marketing,Tiến sĩ,Nam,TP.HCM,11361890.0,7.6,17.9
+50.0,30,Marketing,Đại học,Nam,Đà Nẵng,42225112.0,8.2,16.6
+39.0,18,Kỹ thuật,Đại học,Nam,Cần Thơ,26541151.0,7.0,22.2
+47.0,27,HR,Thạc sĩ,Nam,Hà Nội,39995889.0,4.6,8.0
+55.0,30,HR,Thạc sĩ,Nữ,Cần Thơ,45076313.0,6.0,17.5
+31.0,12,Kỹ thuật,Đại học,Nữ,TP.HCM,24653535.0,7.5,20.7
+35.0,16,HR,Cao đẳng,Nam,TP.HCM,27311142.0,7.1,17.0
+52.0,30,Kỹ thuật,Đại học,Nữ,Hà Nội,,8.5,20.5
+36.0,15,Kỹ thuật,Thạc sĩ,Nam,TP.HCM,23929847.0,7.2,12.5
+29.0,9,Marketing,Đại học,Nữ,Hà Nội,16244926.0,7.7,20.2
+35.0,14,Kỹ thuật,Đại học,Nữ,TP.HCM,24716678.0,5.7,16.1
+44.0,21,HR,Đại học,Nam,TP.HCM,33776098.0,6.9,14.0
+42.0,19,HR,Đại học,Nữ,TP.HCM,30750957.0,5.0,12.0
+37.0,17,Kinh doanh,Đại học,Nam,Đà Nẵng,25298836.0,4.4,11.1
+39.0,18,Kỹ thuật,Thạc sĩ,Nam,TP.HCM,29466319.0,4.0,11.8
+45.0,21,Kỹ thuật,Đại học,Nữ,Hà Nội,31243295.0,5.4,13.5
+47.0,28,Marketing,Cao đẳng,Nam,Hà Nội,42604508.0,9.6,19.1
+46.0,27,Tài chính,Đại học,Nam,Hà Nội,40949897.0,4.8,10.4
+50.0,30,Marketing,Thạc sĩ,Nam,Hà Nội,42590180.0,6.9,17.9
+36.0,13,Kỹ thuật,Đại học,Nữ,Hà Nội,22829199.0,4.1,12.8
+22.0,0,Marketing,Đại học,Nam,Hà Nội,6411179.0,4.1,8.4
+46.0,27,Kinh doanh,Thạc sĩ,Nam,Cần Thơ,,,25.1
+28.0,8,Marketing,Thạc sĩ,Nữ,TP.HCM,19032713.0,4.6,5.8
+30.0,9,Kỹ thuật,Thạc sĩ,Nữ,Hà Nội,17321410.0,7.4,16.8
+45.0,22,Marketing,Thạc sĩ,Nam,TP.HCM,35156069.0,9.1,22.5
+,1,Kinh doanh,Đại học,Nam,Hà Nội,8404613.0,1.7,3.6
+29.0,6,Tài chính,Thạc sĩ,Nam,TP.HCM,14010690.0,4.5,7.6
+45.0,22,Kỹ thuật,Đại học,Nam,TP.HCM,34239454.0,6.8,18.3
+32.0,10,Marketing,Thạc sĩ,Nam,TP.HCM,18447136.0,,19.9
+38.0,15,Tài chính,Thạc sĩ,Nữ,TP.HCM,25169526.0,5.5,13.9
+29.0,5,Kỹ thuật,Thạc sĩ,Nữ,Cần Thơ,12203183.0,5.4,14.5
+54.0,30,Tài chính,Đại học,Nữ,Đà Nẵng,46947087.0,5.7,13.0
+26.0,6,Marketing,Đại học,Nam,TP.HCM,15252895.0,3.2,3.1
+49.0,28,Kỹ thuật,Đại học,Nữ,TP.HCM,40550411.0,,21.4
+28.0,5,Kỹ thuật,Tiến sĩ,Nam,TP.HCM,14320969.0,2.7,7.2
+30.0,6,Marketing,Thạc sĩ,Nữ,Hà Nội,15031507.0,9.0,23.0
+29.0,8,Kỹ thuật,Cao đẳng,Nữ,TP.HCM,17268545.0,6.7,16.9
+33.0,11,Kinh doanh,Đại học,Nam,Hà Nội,22121250.0,6.9,18.9
+55.0,30,Kỹ thuật,Cao đẳng,Nữ,TP.HCM,45136261.0,8.3,19.0
+54.0,30,Marketing,,Nam,TP.HCM,43204248.0,7.0,17.6
+44.0,21,Kỹ thuật,Thạc sĩ,Nữ,Hà Nội,32336272.0,7.3,20.0
+45.0,23,HR,Đại học,Nam,Cần Thơ,35187422.0,,16.2
+43.0,22,Tài chính,Đại học,Nam,Đà Nẵng,30947118.0,7.6,15.3
+48.0,24,Tài chính,Thạc sĩ,Nữ,TP.HCM,34527213.0,6.9,14.4
+22.0,0,Marketing,Thạc sĩ,Nam,TP.HCM,10050311.0,3.6,11.5
+35.0,15,Kỹ thuật,Đại học,Nữ,Đà Nẵng,28467451.0,4.9,16.4
+24.0,2,Marketing,Đại học,Nam,Hà Nội,10026445.0,3.7,12.8
+22.0,0,Kỹ thuật,Đại học,Nữ,TP.HCM,,6.5,16.9
+26.0,6,Kỹ thuật,Đại học,Nữ,Hà Nội,15666875.0,4.6,7.9
+47.0,26,Kỹ thuật,Đại học,Nam,TP.HCM,43818321.0,4.2,10.5
+35.0,13,Kinh doanh,Đại học,Nam,Hà Nội,25279362.0,6.6,21.2
+48.0,24,Marketing,Thạc sĩ,Nam,Đà Nẵng,36608123.0,9.2,24.9
+30.0,6,Marketing,Đại học,Nam,Cần Thơ,,6.6,15.9
+36.0,13,Kinh doanh,Thạc sĩ,Nam,Hà Nội,21190330.0,5.1,14.6
+36.0,14,Kỹ thuật,Đại học,Nữ,TP.HCM,25105195.0,3.7,5.4
+47.0,26,Tài chính,Đại học,Nữ,Cần Thơ,38065473.0,6.9,15.2
+34.0,14,Kinh doanh,Cao đẳng,Nữ,TP.HCM,22666619.0,,11.5
+,30,Kinh doanh,Đại học,Nữ,Đà Nẵng,43030140.0,5.9,16.2
+53.0,30,Kỹ thuật,Thạc sĩ,Nữ,TP.HCM,42377677.0,8.2,22.6
+,6,Marketing,Tiến sĩ,Nữ,TP.HCM,17730712.0,8.2,20.0
+51.0,28,Marketing,Cao đẳng,Nam,Hà Nội,42922459.0,7.6,16.4
+44.0,24,Kỹ thuật,Đại học,Nữ,Hà Nội,36788041.0,7.2,17.9
+36.0,14,Kỹ thuật,Thạc sĩ,Nữ,TP.HCM,,4.7,10.3
+50.0,27,Marketing,Đại học,Nam,TP.HCM,40516052.0,9.3,20.9
+34.0,12,Marketing,Đại học,Nam,TP.HCM,21108073.0,5.8,15.5
+53.0,29,Kỹ thuật,Thạc sĩ,Nam,TP.HCM,45084686.0,6.5,14.0
+28.0,5,Tài chính,Đại học,Nam,TP.HCM,14808365.0,5.5,9.1
+43.0,23,Kỹ thuật,Đại học,Nữ,Đà Nẵng,34044130.0,7.5,14.7
+49.0,26,Kinh doanh,Đại học,Nam,Cần Thơ,38914491.0,7.3,13.4
+23.0,0,Tài chính,Thạc sĩ,Nam,TP.HCM,6686572.0,6.8,17.7
+27.0,4,Kinh doanh,Đại học,Nữ,Đà Nẵng,,5.9,15.2
+49.0,30,Marketing,Cao đẳng,Nam,TP.HCM,45389266.0,7.0,17.8
+49.0,26,Kinh doanh,,Nam,TP.HCM,42064124.0,7.7,21.0
+41.0,19,Kỹ thuật,Cao đẳng,Nam,Cần Thơ,28702148.0,7.3,21.8
+51.0,27,Tài chính,Thạc sĩ,Nữ,Hà Nội,41244453.0,5.2,11.2
+32.0,11,Kinh doanh,Đại học,Nữ,Hà Nội,20224036.0,7.6,20.2
+49.0,26,HR,Tiến sĩ,Nam,Đà Nẵng,38469311.0,6.6,11.8
+46.0,26,Kỹ thuật,Đại học,Nữ,TP.HCM,66683705.0,6.7,20.9
+54.0,30,Kỹ thuật,Đại học,Nam,Đà Nẵng,42704013.0,8.5,17.5
+22.0,2,Kỹ thuật,Cao đẳng,Nữ,Đà Nẵng,10472782.0,6.3,13.6
+48.0,26,Marketing,Đại học,Nữ,Hà Nội,37953574.0,6.0,13.2
+34.0,14,Kinh doanh,,Nữ,Đà Nẵng,25205685.0,7.3,13.7
+24.0,3,HR,Tiến sĩ,Nam,TP.HCM,11524642.0,4.4,11.1
+27.0,3,Kinh doanh,Đại học,Nữ,TP.HCM,11241577.0,8.0,20.6
+29.0,9,Tài chính,,Nữ,TP.HCM,17438654.0,4.5,10.7
+48.0,28,Kỹ thuật,Thạc sĩ,Nam,Cần Thơ,40734843.0,7.6,14.4
+30.0,6,HR,Thạc sĩ,Nữ,Hà Nội,16333086.0,4.3,16.7
+54.0,30,Marketing,Đại học,Nam,TP.HCM,44751375.0,,26.6
+45.0,22,Marketing,Đại học,Nữ,TP.HCM,32933667.0,4.9,20.2
+36.0,16,HR,Đại học,Nam,TP.HCM,27348998.0,7.1,15.3
+53.0,29,Marketing,Đại học,Nữ,TP.HCM,43927080.0,6.2,18.4
+53.0,30,Marketing,Cao đẳng,Nam,Hà Nội,41495892.0,6.9,19.6
+45.0,21,Kỹ thuật,Đại học,Nam,Hà Nội,34015040.0,7.4,17.6
+33.0,11,Kỹ thuật,Đại học,Nam,TP.HCM,20206064.0,7.7,23.5
+23.0,2,Tài chính,Thạc sĩ,Nam,Đà Nẵng,11255898.0,7.6,17.8
+24.0,1,Marketing,Cao đẳng,Nam,Hà Nội,8055111.0,2.8,5.9
+38.0,14,Marketing,Đại học,Nam,Hà Nội,22092676.0,6.5,5.8
+,4,Kinh doanh,Đại học,Nữ,Cần Thơ,10358686.0,7.5,20.0
+23.0,3,Kỹ thuật,Đại học,Nam,Hà Nội,11672127.0,2.7,2.8
+49.0,28,Kỹ thuật,Cao đẳng,Nam,Cần Thơ,41989583.0,7.7,17.6
+44.0,20,Marketing,Đại học,Nữ,TP.HCM,30643525.0,6.6,13.4
+53.0,30,Kinh doanh,Đại học,Nam,Đà Nẵng,,8.0,18.9
+54.0,30,Kỹ thuật,Đại học,Nữ,Hà Nội,41507719.0,6.2,16.8
+22.0,0,Kinh doanh,Đại học,Nữ,Hà Nội,7900880.0,2.8,7.0
+40.0,16,Kỹ thuật,Đại học,Nữ,TP.HCM,25383475.0,3.4,10.6
+23.0,4,Kinh doanh,Thạc sĩ,Nữ,Đà Nẵng,,6.8,20.8
+47.0,23,Kỹ thuật,Đại học,Nữ,TP.HCM,35671098.0,8.5,20.1
+53.0,29,Marketing,Thạc sĩ,Nam,Hà Nội,41509379.0,7.8,18.1
+27.0,8,Kỹ thuật,,Nam,TP.HCM,17023166.0,4.8,14.9
+53.0,30,Kinh doanh,Cao đẳng,Nam,TP.HCM,63676924.0,5.0,15.6
+25.0,1,Kỹ thuật,Cao đẳng,Nữ,TP.HCM,8334662.0,5.9,17.0
+32.0,13,Kỹ thuật,Đại học,Nam,TP.HCM,24853538.0,4.4,8.1
+38.0,18,Kinh doanh,Thạc sĩ,Nữ,Đà Nẵng,27905439.0,5.4,14.8
+45.0,23,Kinh doanh,Thạc sĩ,Nữ,TP.HCM,36394706.0,6.0,15.3
+26.0,4,Marketing,Thạc sĩ,Nữ,Hà Nội,14962352.0,5.0,15.7
+55.0,30,Kỹ thuật,Đại học,Nam,TP.HCM,40292533.0,6.3,14.0
+27.0,6,Marketing,Đại học,Nam,Hà Nội,14004657.0,5.5,8.8
+43.0,22,HR,Cao đẳng,Nữ,TP.HCM,35265608.0,5.8,16.6
+32.0,12,Marketing,Đại học,Nữ,TP.HCM,22095431.0,7.0,9.8
+37.0,13,Kỹ thuật,,Nam,Hà Nội,24156718.0,7.6,16.8
+54.0,30,Kinh doanh,Cao đẳng,Nam,Hà Nội,43094022.0,7.6,15.9
+,9,Kỹ thuật,Đại học,Nữ,Hà Nội,18929884.0,6.4,12.9
+27.0,3,Kỹ thuật,Đại học,Nữ,Đà Nẵng,11366484.0,8.4,18.8
+37.0,16,Tài chính,Thạc sĩ,Nữ,Cần Thơ,28951673.0,4.5,14.9
+50.0,30,Kỹ thuật,Tiến sĩ,Nữ,Hà Nội,44381631.0,,16.2
+24.0,3,Kinh doanh,Thạc sĩ,Nam,Cần Thơ,12106403.0,6.3,15.0
+41.0,19,Marketing,Đại học,Nam,TP.HCM,79124905.0,9.4,26.9
+40.0,17,Marketing,Đại học,Nam,Hà Nội,27668590.0,6.0,11.8
+47.0,27,Kinh doanh,Đại học,Nam,Hà Nội,39751162.0,9.8,20.9
+24.0,4,Kỹ thuật,Thạc sĩ,Nam,TP.HCM,13391678.0,5.5,16.3
+40.0,18,Kỹ thuật,Cao đẳng,Nữ,TP.HCM,28968523.0,5.4,15.2
+41.0,20,Kinh doanh,Đại học,Nữ,TP.HCM,32434662.0,5.1,11.4
+53.0,29,Kỹ thuật,Thạc sĩ,Nữ,Hà Nội,45913101.0,8.3,17.3
+28.0,7,Kinh doanh,Đại học,Nam,Hà Nội,17706687.0,4.2,14.9
+54.0,30,Kỹ thuật,Đại học,Nữ,TP.HCM,43510964.0,7.5,13.6
+,19,Kỹ thuật,Đại học,Nữ,Hà Nội,32601820.0,8.9,20.5
+22.0,1,Kinh doanh,Đại học,Nữ,Hà Nội,8587886.0,,12.2
+32.0,12,Kỹ thuật,Đại học,Nữ,Hà Nội,19342813.0,7.9,25.2
+,25,Kinh doanh,Đại học,Nam,Đà Nẵng,36487870.0,5.2,14.1
+46.0,26,Marketing,Cao đẳng,Nam,Cần Thơ,,6.3,17.2
+44.0,24,HR,Cao đẳng,Nam,TP.HCM,36272729.0,4.8,10.3
+52.0,29,Kỹ thuật,,Nam,Đà Nẵng,42827627.0,7.4,20.2
+51.0,28,Kỹ thuật,Đại học,Nam,Hà Nội,44114655.0,8.4,21.3
+28.0,9,Kỹ thuật,Đại học,Nữ,TP.HCM,19290391.0,5.8,9.7
+37.0,14,Marketing,Đại học,Nữ,Hà Nội,24471349.0,8.0,22.4
+47.0,27,Marketing,Thạc sĩ,Nữ,TP.HCM,41644108.0,6.0,17.9
+,1,Kỹ thuật,Đại học,Nữ,Cần Thơ,6000000.0,5.4,15.9
+22.0,2,Tài chính,Đại học,Nam,TP.HCM,10753421.0,4.4,11.1
+33.0,11,Kỹ thuật,,Nữ,TP.HCM,22356297.0,6.4,13.1
+,4,Kinh doanh,Thạc sĩ,Nam,TP.HCM,10582120.0,6.1,8.3
+,30,Marketing,Đại học,Nam,Hà Nội,,8.3,21.2
+30.0,9,HR,Thạc sĩ,Nam,Đà Nẵng,,4.1,13.5
+40.0,16,Marketing,Đại học,Nam,TP.HCM,26577068.0,4.9,15.2
+37.0,14,HR,Đại học,Nam,TP.HCM,25749172.0,5.1,15.2
+24.0,1,Kỹ thuật,Cao đẳng,Nam,TP.HCM,12606039.0,4.7,11.5
+41.0,20,HR,Cao đẳng,Nam,TP.HCM,32272799.0,6.7,20.0
+45.0,21,Kỹ thuật,Thạc sĩ,Nữ,Hà Nội,33572330.0,7.7,22.0
+54.0,30,HR,Đại học,Nam,TP.HCM,43310958.0,6.1,14.0
+45.0,26,Kinh doanh,Đại học,Nam,Hà Nội,37925233.0,4.7,13.8
+32.0,13,HR,Thạc sĩ,Nam,TP.HCM,24845503.0,9.3,21.6
+29.0,9,Kinh doanh,Thạc sĩ,Nữ,Đà Nẵng,17515874.0,4.0,11.6
+41.0,18,Marketing,Đại học,Nam,Đà Nẵng,61846192.0,7.7,15.4
+46.0,22,Kinh doanh,Đại học,Nam,TP.HCM,33683513.0,6.8,13.3
+46.0,23,Marketing,Cao đẳng,Nam,TP.HCM,36318469.0,7.2,21.2
+50.0,28,Kỹ thuật,,Nam,Hà Nội,42100493.0,7.2,20.8
+39.0,16,Kỹ thuật,Đại học,Nam,TP.HCM,28756309.0,5.7,16.2
+39.0,16,Kỹ thuật,Tiến sĩ,Nam,Hà Nội,26434975.0,7.0,17.8
+23.0,3,Kỹ thuật,Cao đẳng,Nam,TP.HCM,11195187.0,4.6,4.3
+37.0,17,HR,Cao đẳng,Nam,Hà Nội,26931854.0,8.1,20.0
+54.0,30,Kỹ thuật,Đại học,Nam,Hà Nội,43333560.0,8.3,22.1
+25.0,6,Tài chính,Đại học,Nữ,TP.HCM,15765950.0,6.4,14.4
+54.0,30,Kỹ thuật,Đại học,Nam,Hà Nội,45135482.0,6.6,14.4
+35.0,15,Kỹ thuật,Thạc sĩ,Nam,TP.HCM,24616752.0,5.8,18.8
+,18,Marketing,Đại học,Nam,Hà Nội,30904408.0,4.7,11.6
+41.0,22,Marketing,Đại học,Nữ,Hà Nội,36433456.0,6.2,16.9
+29.0,8,Kinh doanh,Thạc sĩ,Nam,TP.HCM,65397562.0,4.1,12.6
+,4,Kinh doanh,Đại học,Nam,Hà Nội,15615193.0,7.3,15.2
+24.0,0,Marketing,Thạc sĩ,Nữ,Hà Nội,6839316.0,5.1,13.3
+38.0,18,Kỹ thuật,,Nam,TP.HCM,27733017.0,6.7,20.7
+54.0,30,Tài chính,Đại học,Nam,Hà Nội,41331919.0,7.1,23.2
+33.0,12,Tài chính,Cao đẳng,Nam,Đà Nẵng,24644066.0,6.3,15.9
+43.0,24,Marketing,Cao đẳng,Nữ,Hà Nội,37781548.0,10.0,24.3
+43.0,22,Kỹ thuật,Thạc sĩ,Nam,Hà Nội,34316622.0,6.3,16.6
+51.0,29,Marketing,Cao đẳng,Nữ,TP.HCM,43219952.0,6.3,16.5
+29.0,9,Kỹ thuật,,Nữ,Hà Nội,,6.5,20.4
+48.0,27,Kỹ thuật,Đại học,Nam,Hà Nội,44068627.0,3.4,5.5
+48.0,29,Kỹ thuật,Đại học,Nam,TP.HCM,42993831.0,7.4,17.7
+55.0,30,Kinh doanh,Thạc sĩ,Nam,Hà Nội,44164092.0,6.8,13.6
+42.0,19,HR,Cao đẳng,Nam,Đà Nẵng,31888649.0,5.0,9.5
+,28,Marketing,Đại học,Nam,Hà Nội,42321513.0,8.0,21.1
+54.0,30,Marketing,Tiến sĩ,Nữ,TP.HCM,44335826.0,7.5,21.2
+49.0,30,Kinh doanh,Đại học,Nữ,Đà Nẵng,42814288.0,,9.8
+54.0,30,Kỹ thuật,Thạc sĩ,Nữ,TP.HCM,44707202.0,6.4,18.3
+26.0,6,Kinh doanh,Cao đẳng,Nam,Đà Nẵng,18023036.0,1.1,6.1
+40.0,20,Tài chính,Đại học,Nữ,TP.HCM,34018130.0,7.0,23.3
+25.0,2,Kỹ thuật,Đại học,Nữ,Cần Thơ,12789779.0,5.6,14.2
+38.0,17,HR,Thạc sĩ,Nữ,Hà Nội,27633176.0,5.2,11.1
+49.0,30,Kinh doanh,Tiến sĩ,Nam,TP.HCM,42515592.0,8.2,17.5
+51.0,28,Kinh doanh,Đại học,Nữ,TP.HCM,41411319.0,5.3,9.9
+50.0,29,Marketing,Đại học,Nam,TP.HCM,42883587.0,5.9,18.5
+27.0,6,Kinh doanh,Đại học,Nam,TP.HCM,16841287.0,6.1,10.7
+45.0,25,HR,Đại học,Nam,TP.HCM,35461303.0,6.0,18.7
+50.0,26,Tài chính,Đại học,Nữ,Hà Nội,41494325.0,7.0,14.9
+52.0,28,Kinh doanh,Tiến sĩ,Nữ,Hà Nội,41362988.0,6.4,13.9
+54.0,30,Kỹ thuật,Đại học,Nam,TP.HCM,43359678.0,6.8,16.5
+42.0,22,Kinh doanh,Đại học,Nam,TP.HCM,32881843.0,6.2,13.4
+53.0,30,Tài chính,,Nam,Cần Thơ,41517714.0,6.3,18.5
+44.0,25,Kỹ thuật,Đại học,Nam,TP.HCM,39234755.0,,24.2
+54.0,30,Marketing,Đại học,Nam,Cần Thơ,44109976.0,6.5,14.3
+24.0,3,Marketing,Đại học,Nam,TP.HCM,9665058.0,5.3,12.0
+,15,Marketing,Thạc sĩ,Nữ,Hà Nội,24057381.0,5.1,12.3
+46.0,22,Kỹ thuật,Đại học,Nam,Hà Nội,33896322.0,4.5,12.9
+52.0,28,Marketing,Đại học,Nam,TP.HCM,44103532.0,8.6,21.0
+24.0,5,Tài chính,Cao đẳng,Nam,TP.HCM,13610612.0,6.1,19.4
+45.0,25,Kỹ thuật,Thạc sĩ,Nữ,Hà Nội,35745285.0,10.0,28.4
+53.0,30,Kỹ thuật,Thạc sĩ,Nữ,TP.HCM,43631385.0,5.8,10.9
+43.0,20,Tài chính,Cao đẳng,Nữ,Cần Thơ,31590914.0,6.3,17.3
+44.0,23,Kỹ thuật,Thạc sĩ,Nam,TP.HCM,31554670.0,,21.1
+23.0,3,HR,Đại học,Nữ,TP.HCM,11518557.0,6.7,15.3
+48.0,28,Kinh doanh,Cao đẳng,Nam,TP.HCM,41253598.0,6.5,15.4
+23.0,3,Kỹ thuật,Đại học,Nữ,Hà Nội,12644309.0,3.5,7.2
+47.0,27,HR,Đại học,Nữ,TP.HCM,43173434.0,9.0,21.0
+38.0,19,Kinh doanh,Đại học,Nữ,TP.HCM,32489847.0,6.0,10.0
+54.0,30,Kinh doanh,Thạc sĩ,Nữ,Hà Nội,43596666.0,8.7,17.8
+30.0,8,Kinh doanh,Thạc sĩ,Nữ,TP.HCM,15940211.0,6.8,17.2
+50.0,29,Kinh doanh,Đại học,Nam,TP.HCM,46660039.0,7.3,22.8
+47.0,27,Kỹ thuật,Đại học,Nữ,Đà Nẵng,40488827.0,6.9,15.4
+46.0,25,Kinh doanh,Đại học,Nam,Đà Nẵng,38020893.0,6.4,14.1
+45.0,23,Tài chính,Đại học,Nam,Hà Nội,58041341.0,6.8,22.1
+34.0,12,Kỹ thuật,Đại học,Nam,TP.HCM,22697127.0,7.3,14.9
+28.0,7,Marketing,Cao đẳng,Nam,TP.HCM,16183459.0,4.4,6.0
+41.0,17,Kỹ thuật,Đại học,Nam,Đà Nẵng,27539506.0,6.5,13.8
+22.0,0,Marketing,Thạc sĩ,Nam,Hà Nội,7179711.0,3.3,6.3
+29.0,5,Kỹ thuật,Đại học,Nam,TP.HCM,13950870.0,3.9,4.5
+37.0,13,Tài chính,Cao đẳng,Nam,TP.HCM,,6.0,14.6
+35.0,16,Kinh doanh,Thạc sĩ,Nam,Hà Nội,26130731.0,3.3,11.1
+33.0,9,Kỹ thuật,Đại học,Nam,Hà Nội,18959645.0,8.8,18.1
+44.0,24,Kỹ thuật,Đại học,Nam,TP.HCM,36417534.0,5.1,13.0
+36.0,17,Kỹ thuật,Đại học,Nam,TP.HCM,30655989.0,,16.9
+49.0,30,Kinh doanh,Đại học,Nữ,Hà Nội,40023545.0,9.2,22.7
+55.0,30,Kỹ thuật,Thạc sĩ,Nữ,TP.HCM,45637260.0,6.1,15.8
+23.0,0,HR,Đại học,Nữ,TP.HCM,9869127.0,1.5,4.3
+53.0,30,Kinh doanh,Đại học,Nữ,TP.HCM,40889914.0,6.7,14.3
+44.0,23,Kỹ thuật,Thạc sĩ,Nam,Hà Nội,35085968.0,5.5,18.2
+43.0,20,Marketing,Thạc sĩ,Nữ,Đà Nẵng,31442838.0,3.2,11.7
+46.0,27,Marketing,,Nam,Hà Nội,38288732.0,7.6,22.6
+43.0,22,Kỹ thuật,Đại học,Nam,TP.HCM,33233274.0,7.1,20.8
+43.0,22,Kỹ thuật,Đại học,Nữ,Hà Nội,32734136.0,8.5,16.5
+27.0,7,Kỹ thuật,Tiến sĩ,Nam,Hà Nội,19028405.0,3.9,12.5
+36.0,13,Marketing,Thạc sĩ,Nữ,TP.HCM,25003517.0,3.6,11.0
+54.0,30,Marketing,Cao đẳng,Nữ,Hà Nội,45907332.0,6.8,12.4
+29.0,8,Kinh doanh,Cao đẳng,Nữ,Đà Nẵng,18682508.0,5.5,13.1
+26.0,3,HR,Đại học,Nữ,Hà Nội,72816720.0,6.6,17.3
+25.0,2,HR,Thạc sĩ,Nam,TP.HCM,9613219.0,7.3,23.2
+27.0,6,Kinh doanh,Đại học,Nam,Hà Nội,15934061.0,7.3,20.4
