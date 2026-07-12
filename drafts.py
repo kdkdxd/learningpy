@@ -46,7 +46,6 @@ print(cleaned_em.head(7))
 
 
 # Statistical Testing
-
 # Check if Normal Distribution
 t,pvalue1 = stats.shapiro(cleaned_em["Salary"])
 print(f"\nShapiro pvalue : {pvalue1:4f}")
@@ -54,7 +53,6 @@ if pvalue1 >= 0.05:
     print("Data has Normal Distribution")
 else:
     print("Data does not have Normal Distribution")
-
 
 #Compare Salary between Male and Female
 if pvalue1 >= 0.05:
@@ -66,17 +64,15 @@ if pvalue1 >= 0.05:
         print("Salary Between Male and Female Salary is Diffent")
     else:
         print("Does not have enough Statistical Evidence")
-
 else:
     male_sal = cleaned_em.loc[cleaned_em["Gender"]=="Nam", "Salary"]
     female_sal = cleaned_em.loc[cleaned_em["Gender"]=="Nữ", "Salary"]
     t3,pvalue3 = stats.mannwhitneyu(male_sal,female_sal)
-    print(f"ManWhitney pvalue : {pvalue3:.4f}")
+    print(f"\nManWhitney pvalue : {pvalue3:.4f}")
     if pvalue3 < 0.05:
         print("Salary Between Male and Female Salary is Diffent => Perhaps Different ")
     else:
         print("Does not have enough Statistical Evidence => Perhaps Not Different")
-
 
 #Compare Salary between Different Department
 group_dept = [group["Salary"].values for name, group in cleaned_em.groupby("Department")]
